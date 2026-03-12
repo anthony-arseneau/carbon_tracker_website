@@ -27,13 +27,13 @@ export default function ActionButtons() {
   const actions = [
     {
       icon: <MegaphoneIcon />,
-      title: 'SIGN THE GLOBAL PETITION',
+      title: 'BE PART OF THE CHANGE',
       description: 'Demand world leaders establish enforceable carbon caps for fossil fuel majors',
       borderColor: 'border-neon-red',
       hoverBg: 'hover:bg-neon-red/10',
       iconBg: 'bg-neon-red/10',
       titleColor: 'text-neon-red',
-      href: 'https://www.fossilfueltreaty.org/',
+      href: 'https://www.pacificenvironment.org/',
     },
     {
       icon: <PhoneIcon />,
