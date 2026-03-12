@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 const GlobeIcon = () => (
   <svg className="w-5 h-5 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -14,11 +15,11 @@ export default function Footer() {
           <span>Emissions Budget · Built for environmental transparency</span>
         </div>
         <div className="flex items-center gap-4">
-          <a href="/about.html" className="hover:text-white transition-colors">About</a>
+          <Link to="/about" className="hover:text-white transition-colors">About</Link>
           {/*<span className="text-dark-border">|</span>
-          <a href="#" className="hover:text-white transition-colors">Methodology</a>*/}
+          <Link to="#" className="hover:text-white transition-colors">Methodology</Link>*/}
           <span className="text-dark-border">|</span>
-          <a href="/privacy.html" className="hover:text-white transition-colors">Privacy Policy</a>
+          <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
         </div>
       </div>
       <p className="text-center text-xs text-muted-text mt-4">
