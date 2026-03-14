@@ -31,7 +31,7 @@ export default function Header() {
             document.getElementById('sources')?.scrollIntoView({ behavior: 'smooth' });
           }}
         >
-          GLOBAL CARBON PROJECT
+          WORLD METEOROLOGICAL ORGANIZATION
         </a>{' '}
         OF{' '}
         <span className="text-muted-text font-semibold">

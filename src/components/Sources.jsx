@@ -3,6 +3,17 @@ export default function Sources() {
   const sources = [
     
     {
+      title: 'World Meteorological Organization (WMO)',
+      description: 'State of the Global Climate 2024/2025 (Confirmed 1.5°C Breach)',
+      url: 'https://wmo.int/news/media-centre/wmo-confirms-2024-warmest-year-record-about-155degc-above-pre-industrial-level',
+    },
+    {
+      title: 'Berkeley Earth',
+      description: 'Global Temperature Report for 2024 (+1.62°C Anomaly)',
+      url: 'https://berkeleyearth.org/global-temperature-report-for-2024/',
+    },
+
+    {
       title: 'Global Carbon Budget',
       description: 'Remaining Carbon Budget at the End of 2025',
       url: 'https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/#:~:text=Over%20the%202015%2D2024%20period,as%20a%20peer%2Dreviewed%20paper.',
@@ -11,10 +22,6 @@ export default function Sources() {
       title: 'Our World in Data',
       description: 'Annual CO₂ emissions',
       url: 'https://ourworldindata.org/grapher/annual-co2-emissions-per-country?country=USA~GBR~IND~CHN~FRA~DEU~BRA~OWID_WRL',
-    },{
-      title: 'IPCC',
-      description: 'Remaining Carbon Budget, Climate Projections',
-      url: 'https://www.ipcc.ch/sr15/',
     },
 
 
