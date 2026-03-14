@@ -40,7 +40,7 @@ export default function EconomicCost() {
         
         <div className="bg-dark-slate/50 border border-neon-red/30 rounded-lg p-4">
           <p className="text-sm text-white">
-            At current emission rates of <span className="font-semibold">38B t/year</span> and a social cost of{' '}
+            At current emission rates of <span className="font-semibold">38B tonnes/year</span> and a social cost of{' '}
             <span className="font-semibold">$185/tonne</span>, the annual hidden cost to society is{' '}
             <span className="text-neon-red font-semibold text-lg text-glow-red">${annualCost.toFixed(1)} trillion</span>. This is equivalent to{' '}
             <span>~7.5% of global GDP</span>.

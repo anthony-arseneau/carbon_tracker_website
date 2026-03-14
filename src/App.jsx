@@ -52,8 +52,8 @@ export default function App() {
         {/* Economic Cost */}
         <EconomicCost />
         
-        {/* Air Quality & Mortality
-        <AirQuality /> */}
+        {/* Air Quality & Mortality */}
+        {/* <AirQuality /> */}
         
         {/* H. Sources */}
         <Sources />

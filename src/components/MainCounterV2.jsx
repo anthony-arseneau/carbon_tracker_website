@@ -10,6 +10,7 @@ import {
   TONNES_PER_SECOND,
 } from '../config.js';
 import { calculateTimeElapsed, formatNumber, padZero } from '../utils';
+import BudgetDepletionBar from './BudgetDepletionBar';
 
 const VIEWS = {
   BUDGET_REMAINING: 'budget-remaining',
@@ -72,7 +73,7 @@ export default function MainCounter() {
       // Wildfire
       const burned = elapsed.totalSeconds * KM2_PER_SECOND;
       setHectaresBurned(burned);
-      setCarbonReleased((burned * AVG_CO2_PER_KM2) / 1e6);
+      setCarbonReleased((burned * AVG_CO2_PER_KM2));
     };
 
     updateCounter();
@@ -149,27 +150,27 @@ export default function MainCounter() {
   const isCountdown = activeView === VIEWS.BUDGET_REMAINING;
 
   const currentHeader =
-    isCountdown ? 'EST. CARBON EMISSIONS BUDGET TO REMAIN BELOW 1.5ºC'
-    : isFireView ? 'EST. GLOBAL WILDFIRE LOSS SINCE JAN 1, 2026'
-    : 'EST. GLOBAL CO₂e SINCE JAN 1, 2026';
+    isCountdown ? 'EST. CARBON EMISSIONS BUDGET TO STAY BELOW 1.5ºC'
+    : isFireView ? 'EST. GLOBAL WILDFIRE LOSS'
+    : 'EST. CARBON EMISSIONS';
 
   const currentSubLabel =
     isCountdown ? 'METRIC TONNES OF CO₂e REMAINING'
     : isFireView ? 'SQUARE KILOMETERS BURNED YTD'
-    : 'METRIC TONNES CO₂e EMITTED';
+    : 'METRIC TONNES CO₂e EMITTED YTD';
 
   const depletionStr = depletionDate ? `${MONTH_NAMES[depletionDate.getMonth()]} ${depletionDate.getFullYear()}` : '...';
-  const infoLine =
-    isCountdown ? `${formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0)} tonnes / day · Our World in Data Estimate`
-    : isFireView ? `${formatNumber(Math.round(KM2_PER_SECOND * 3600))} km² / hour · Satellite monitoring data`
-    : `${formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0)} tonnes / day · Our World in Data Estimate`;
+  // const infoLine =
+  //   isCountdown ? `${formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0)} tonnes / day · Our World in Data Estimate`
+  //   : isFireView ? `${formatNumber(Math.round(KM2_PER_SECOND * 3600))} km² / hour · Satellite monitoring data`
+  //   : `${formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0)} tonnes / day · Our World in Data Estimate`;
 
   const cards = buildCards(activeView, depletionDate, yearsRemaining, budgetRemaining, carbonReleased);
 
   return (
     <section className="mb-10">
       <div
-        className={`relative border ${isFireView ? '' : 'border-dark-border'} rounded-lg bg-dark-slate p-8 md:p-12 overflow-hidden`}
+        className={`relative border ${isFireView ? '' : 'border-dark-border'} rounded-lg bg-dark-slate p-8 md:p-12 ${isCountdown ? 'pb-10 md:pb-14' : 'pb-8 md:pb-12'} overflow-hidden`}
         style={isFireView ? { borderColor: '#FF4D00', boxShadow: '0 0 30px rgba(255, 77, 0, 0.15)' } : undefined}
       >
         {/* Background Video 1 */}
@@ -269,7 +270,7 @@ export default function MainCounter() {
                 </div>
               )} */}
 
-              <p className="text-sm text-muted-text tracking-[0.1em] mb-6">{infoLine}</p>
+              {/*<p className="text-sm text-muted-text tracking-[0.1em] mb-6">{infoLine}</p>*/}
             </motion.div>
           </AnimatePresence>
 
@@ -314,11 +315,14 @@ export default function MainCounter() {
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* Budget Depletion Bar */}
+        {isCountdown && <BudgetDepletionBar budgetRemaining={budgetRemaining} />}
       </div>
 
       {/* Context Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
           {cards.map((card, idx) => (
             <motion.div
               key={`${activeView}-${idx}`}
@@ -368,17 +372,17 @@ function buildCards(activeView, depletionDate, yearsRemaining, budgetRemaining, 
     const color = isCritical ? '#B91C1C' : '#FF9F43';
     const glow = isCritical ? redGlow : orangeGlow;
     return [
-      { label: 'EST. DEPLETION DATE', value: dateStr, unit: '1.5°C budget exhausted', color, glow },
-      { label: 'YEARS REMAINING', value: yearsRemaining.toFixed(2), unit: 'at current emission rate', color, glow },
-      { label: 'BUDGET DEPLETED', value: `${depleted.toFixed(1)}%`, unit: `of ${formatNumber(INITIAL_BUDGET_15C, 0)} t`, color, glow },
+      { label: 'EST. DEPLETION DATE', value: dateStr, unit: 'budget exhausted', color, glow },
+      { label: 'PER DAY', value: formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0), unit: 'tonnes of CO₂e', color, glow },
+      { label: 'BUDGET DEPLETED', value: `${depleted.toFixed(1)}%`, unit: `of ${formatNumber(INITIAL_BUDGET_15C, 0)} tonnes of CO₂e`, color, glow },
     ];
   }
 
   // Forest loss
   return [
-    { label: 'KM² / HOUR', value: formatNumber(Math.round(KM2_PER_SECOND * 3600)), unit: 'global average', color: '#FF4D00', glow: fireGlow },
-    { label: 'CARBON RELEASED', value: `${carbonReleased.toFixed(2)}`, unit: 'megatonnes CO₂e', color: '#FF4D00', glow: fireGlow },
-    { label: 'AVG CO₂ / KM²', value: AVG_CO2_PER_KM2, unit: 'tonnes (weighted avg)', color: '#FF4D00', glow: fireGlow },
+    { label: 'PER HOUR', value: formatNumber(Math.round(KM2_PER_SECOND * 3600)), unit: 'square kilometers', color: '#FF4D00', glow: fireGlow },
+    { label: 'CARBON RELEASED', value: formatNumber(Math.round(carbonReleased), 0), unit: 'tonnes CO₂e', color: '#FF4D00', glow: fireGlow },
+    { label: 'AVERAGE', value: AVG_CO2_PER_KM2, unit: 'tonnes CO₂ / km²', color: '#FF4D00', glow: fireGlow },
   ];
 }
 

@@ -8,7 +8,7 @@ export default function Header() {
         <span className="animate-blink text-neon-orange">●</span>
         <span>LIVE ESTIMATE</span>
         <span className="text-dark-border">·</span>
-        <span>GLOBAL CARBON OUTPUT</span>
+        <span>EMISSIONS BUDGET</span>
         <span className="text-dark-border">·</span>
         <span>TRACKING SINCE JAN 1, 2026</span>
       </div>
@@ -17,17 +17,17 @@ export default function Header() {
         GLOBAL CARBON EMISSIONS BUDGET
       </h1>
       
-      <p className="text-sm text-muted-text tracking-[0.2em] mb-6">
+      {/* <p className="text-sm text-muted-text tracking-[0.2em] mb-6">
         Estimated Metric Tonnes of CO₂e Released
-      </p>
+      </p> */}
       
-      <div className="inline-block px-6 py-2 rounded-full border border-dark-border bg-dark-card/50 text-xs tracking-[0.15em]">
+      <div className="inline-block text-muted-text px-6 py-2 rounded-full border border-dark-border bg-dark-card/50 text-xs tracking-[0.15em]">
         BASED ON THE{' '}
-        <a href="#sources" className="text-neon-cyan hover:underline">
-          OUR WORLD IN DATA ESTIMATE
+        <a href="#sources" className="text-muted-text hover:underline">
+          GLOBAL CARBON PROJECT
         </a>{' '}
         OF{' '}
-        <span className="text-white font-semibold">
+        <span className="text-muted-text font-semibold">
           {formatLargeNumber(CONFIG.annualTonnes).replace(/\.\d+/, '').toUpperCase()}
         </span>{' '}
         TONNES PER YEAR

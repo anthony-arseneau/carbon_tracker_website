@@ -150,7 +150,7 @@ function AQIScale({ currentAqi = 58 }) {
         </div>
         
         {/* Triangle indicator below scale bar pointing up */}
-        <div 
+        {/* <div 
           className="absolute transform -translate-x-1/2 flex flex-col items-center z-10"
           style={{ left: `${arrowPosition}%`, top: '14px' }}
         >
@@ -159,7 +159,7 @@ function AQIScale({ currentAqi = 58 }) {
           </svg>
           <span className="text-[10px] font-bold" style={{ color: '#22C55E' }}>{currentAqi}</span>
           <span className="text-[8px] tracking-wider text-muted-text">WORLD AVG</span>
-        </div>
+        </div> */}
         
         {/* Labels below */}
         <div className="flex mt-2">
@@ -248,7 +248,7 @@ export default function AirQuality() {
       </div>
       
       {/* Main Content Box */}
-      <div className="border border-dark-border rounded-lg bg-dark-card p-6 glow-violet relative overflow-hidden">
+      <div className="border border-dark-border rounded-lg bg-dark-card p-6 relative overflow-hidden">
         {/* Subtle haze gradient background */}
         <div className="absolute inset-0 bg-gradient-to-b from-neon-violet/5 via-transparent to-neon-violet/3 pointer-events-none" />
         
@@ -274,8 +274,8 @@ export default function AirQuality() {
                   className="relative rounded-lg p-5 text-center overflow-hidden group transition-all"
                   style={{ 
                     backgroundColor: 'rgba(15, 23, 42, 0.8)',
-                    border: `1px solid ${aqiColor}`,
-                    boxShadow: getAqiGlow(tier.avgAqi)
+                    // border: `1px solid ${aqiColor}`,
+                    // boxShadow: getAqiGlow(tier.avgAqi)
                   }}
                 >
                   <div className="relative z-10">
@@ -328,9 +328,9 @@ export default function AirQuality() {
                       </p>
                     </div>
                     
-                    <p className="text-[9px] text-muted-text mt-3 font-mono">
+                    {/* <p className="text-[9px] text-muted-text mt-3 font-mono">
                       CALCULATED RISK: Pop × AQI Factor
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               );
@@ -338,7 +338,7 @@ export default function AirQuality() {
           </div>
           
           {/* Methodology Box */}
-          <div className="border border-dark-border rounded-lg bg-dark-slate/50 p-4 mb-6">
+          {/* <div className="border border-dark-border rounded-lg bg-dark-slate/50 p-4 mb-6">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-neon-violet text-xs tracking-[0.2em] font-semibold">METHODOLOGY</span>
             </div>
@@ -355,10 +355,10 @@ export default function AirQuality() {
                 <a href="#" className="text-neon-cyan hover:underline">The Lancet Commission on Pollution and Health</a>.
               </p>
             </div>
-          </div>
+          </div> */}
           
           {/* Action: Local Intervention - Static elegant violet border-glow with hover scale */}
-          <a 
+          {/* <a 
             href="#"
             className="action-btn block rounded-lg bg-dark-card p-5 transition-all duration-300 hover:scale-[1.02]"
             style={{
@@ -384,7 +384,7 @@ export default function AirQuality() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
               </svg>
             </div>
-          </a>
+          </a> */}
         </div>
       </div>
     </section>

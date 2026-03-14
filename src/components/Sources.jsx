@@ -1,6 +1,12 @@
 
 export default function Sources() {
   const sources = [
+    
+    {
+      title: 'Global Carbon Budget',
+      description: 'Remaining Carbon Budget at the End of 2025',
+      url: 'https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/#:~:text=Over%20the%202015%2D2024%20period,as%20a%20peer%2Dreviewed%20paper.',
+    },
     {
       title: 'Our World in Data',
       description: 'Annual CO₂ emissions',
@@ -9,11 +15,6 @@ export default function Sources() {
       title: 'IPCC',
       description: 'Remaining Carbon Budget, Climate Projections',
       url: 'https://www.ipcc.ch/sr15/',
-    },
-    {
-      title: 'Global Carbon Budget',
-      description: 'Remaining Carbon Budget at the End of 2025',
-      url: 'https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/#:~:text=Over%20the%202015%2D2024%20period,as%20a%20peer%2Dreviewed%20paper.',
     },
 
 
@@ -84,7 +85,7 @@ export default function Sources() {
                 >
                   {source.title}
                 </a>
-                {' — '}{source.description}
+                {' | '}{source.description}
               </span>
             </li>
           ))}
