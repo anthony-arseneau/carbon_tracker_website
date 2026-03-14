@@ -14,7 +14,7 @@ export default function Header() {
       </div>
       
       <h1 className="text-3xl md:text-4xl font-bold tracking-[0.15em] mb-3 text-white">
-        GLOBAL CARBON EMISSIONS BUDGET
+        GLOBAL EMISSIONS BUDGET
       </h1>
       
       {/* <p className="text-sm text-muted-text tracking-[0.2em] mb-6">

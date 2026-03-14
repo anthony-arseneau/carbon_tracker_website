@@ -150,9 +150,9 @@ export default function MainCounter() {
   const isCountdown = activeView === VIEWS.BUDGET_REMAINING;
 
   const currentHeader =
-    isCountdown ? 'EST. CARBON EMISSIONS BUDGET TO STAY BELOW 1.5ºC'
+    isCountdown ? 'EST. GLOBAL EMISSIONS BUDGET TO STAY BELOW 1.5ºC'
     : isFireView ? 'EST. GLOBAL WILDFIRE LOSS'
-    : 'EST. CARBON EMISSIONS';
+    : 'EST. GLOBAL EMISSIONS';
 
   const currentSubLabel =
     isCountdown ? 'METRIC TONNES OF CO₂e REMAINING'
