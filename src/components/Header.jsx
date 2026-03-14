@@ -23,7 +23,14 @@ export default function Header() {
       
       <div className="inline-block text-muted-text px-6 py-2 rounded-full border border-dark-border bg-dark-card/50 text-xs tracking-[0.15em]">
         BASED ON THE{' '}
-        <a href="#sources" className="text-muted-text hover:underline">
+        <a
+          href="#sources"
+          className="text-muted-text hover:underline"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('sources')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
           GLOBAL CARBON PROJECT
         </a>{' '}
         OF{' '}
