@@ -50,7 +50,7 @@ export default function App() {
         <AbsorptionAlternatives /> */}
         
         {/* Economic Cost */}
-        <EconomicCost />
+        {/* <EconomicCost /> */}
         
         {/* Air Quality & Mortality */}
         {/* <AirQuality /> */}
