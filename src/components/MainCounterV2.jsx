@@ -373,8 +373,8 @@ function buildCards(activeView, depletionDate, yearsRemaining, budgetRemaining, 
     const glow = isCritical ? redGlow : orangeGlow;
     return [
       { label: 'EST. DEPLETION DATE', value: dateStr, unit: 'budget exhausted', color, glow },
-      { label: 'PER DAY', value: formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0), unit: 'tonnes of CO₂e', color, glow },
-      { label: 'BUDGET DEPLETED', value: `${depleted.toFixed(1)}%`, unit: `of ${formatNumber(INITIAL_BUDGET_15C, 0)} tonnes of CO₂e`, color, glow },
+      { label: 'PER DAY', value: formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0), unit: 'tonnes CO₂e', color, glow },
+      { label: 'BUDGET DEPLETED', value: `${depleted.toFixed(1)}%`, unit: `of ${formatNumber(INITIAL_BUDGET_15C, 0)} tonnes CO₂e`, color, glow },
     ];
   }
 
@@ -382,7 +382,7 @@ function buildCards(activeView, depletionDate, yearsRemaining, budgetRemaining, 
   return [
     { label: 'PER HOUR', value: formatNumber(Math.round(KM2_PER_SECOND * 3600)), unit: 'square kilometers', color: '#FF4D00', glow: fireGlow },
     { label: 'CARBON RELEASED', value: formatNumber(Math.round(carbonReleased), 0), unit: 'tonnes CO₂e', color: '#FF4D00', glow: fireGlow },
-    { label: 'AVERAGE', value: AVG_CO2_PER_KM2, unit: 'tonnes CO₂ / km²', color: '#FF4D00', glow: fireGlow },
+    { label: 'AVERAGE', value: AVG_CO2_PER_KM2, unit: 'tonnes CO₂e / km²', color: '#FF4D00', glow: fireGlow },
   ];
 }
 
