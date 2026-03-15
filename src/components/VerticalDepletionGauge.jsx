@@ -158,6 +158,16 @@ function MacroTank({ budgetRemaining }) {
           </span>
         </div>
       ))}
+
+      {/* Stockpile label */}
+      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-1 pointer-events-none z-10">
+        <span
+          className="text-[9px] font-mono uppercase tracking-widest whitespace-nowrap"
+          style={{ color: 'rgba(255,255,255,0.35)', textShadow: '0 0 6px rgba(0,0,0,0.9)' }}
+        >
+          stockpile
+        </span>
+      </div>
     </div>
   );
 }
