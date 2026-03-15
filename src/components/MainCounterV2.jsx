@@ -10,11 +10,13 @@ import {
   KM2_PER_SECOND,
   SECONDS_PER_YEAR,
   TONNES_PER_SECOND,
+  getAcceleratedTonnesPerSecond,
+  getAcceleratedTotalEmissions,
+  getSecondsUntilBudgetDepleted
 } from '../config.js';
 import { calculateTimeElapsed, formatNumber, padZero } from '../utils';
-import BudgetDepletionBar from './BudgetDepletionBar';
 
-const VIEWS = {
+export const VIEWS = {
   BUDGET_20C: 'budget-2.0c',
   BUDGET_15C_OVERSHOOT: 'budget-1.5c-overshoot',
   TOTAL_EMISSIONS_SPEND: 'total-emissions-spend',
@@ -27,9 +29,14 @@ const COUNTER_INTERVAL_MS = CONFIG.updateInterval;
 const MONTH_NAMES = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 const BREACH_DATE_15C = new Date('2024-01-01T00:00:00Z');
 
-export default function MainCounter() {
+export default function MainCounter({ onViewChange }) {
   const [activeView, setActiveView] = useState(VIEWS.BUDGET_20C);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleViewChange = (view) => {
+    setActiveView(view);
+    onViewChange?.(view);
+  };
 
   const [emissionsSpend, setEmissionsSpend] = useState(0);
   const [budget15Remaining, setBudget15Remaining] = useState(INITIAL_BUDGET_15C);
@@ -60,8 +67,8 @@ export default function MainCounter() {
       const now = new Date();
       const elapsed = calculateTimeElapsed(COUNTER_START_DATE);
 
-      // Emissions
-      const spent = elapsed.totalSeconds * TONNES_PER_SECOND;
+      // Emissions (with 0.8%/yr acceleration)
+      const spent = getAcceleratedTotalEmissions(elapsed.totalSeconds);
       const remaining15 = Math.max(INITIAL_BUDGET_15C - spent, 0);
       const remaining20 = Math.max(INITIAL_BUDGET_20C - spent, 0);
       setEmissionsSpend(spent);
@@ -69,14 +76,14 @@ export default function MainCounter() {
       setBudget20Remaining(remaining20);
       setTimeElapsed(elapsed);
 
-      // 1.5°C countdown
-      const secsLeft15 = remaining15 / TONNES_PER_SECOND;
+      // 1.5°C countdown (accelerated)
+      const secsLeft15 = getSecondsUntilBudgetDepleted(remaining15, elapsed.totalSeconds);
       setBudgetCountdown15(secsToCountdown(secsLeft15));
       setYearsRemaining15(secsLeft15 / SECONDS_PER_YEAR);
       setDepletionDate15(new Date(now.getTime() + secsLeft15 * 1000));
 
-      // 2.0°C countdown
-      const secsLeft20 = remaining20 / TONNES_PER_SECOND;
+      // 2.0°C countdown (accelerated)
+      const secsLeft20 = getSecondsUntilBudgetDepleted(remaining20, elapsed.totalSeconds);
       setBudgetCountdown20(secsToCountdown(secsLeft20));
       setYearsRemaining20(secsLeft20 / SECONDS_PER_YEAR);
       setDepletionDate20(new Date(now.getTime() + secsLeft20 * 1000));
@@ -88,7 +95,7 @@ export default function MainCounter() {
       // 1.5°C breach elapsed (since Jan 1, 2024)
       const breachSecs = (now - BREACH_DATE_15C) / 1000;
       setBreachElapsed(secsToCountdown(Math.max(breachSecs, 0)));
-      setOvershootEmissions(Math.max(breachSecs, 0) * TONNES_PER_SECOND);
+      setOvershootEmissions(getAcceleratedTotalEmissions(Math.max(breachSecs, 0)));
 
       // Wildfire
       const burned = elapsed.totalSeconds * KM2_PER_SECOND;
@@ -192,10 +199,10 @@ export default function MainCounter() {
     : isFireView ? 'SQUARE KILOMETERS BURNED YTD'
     : 'METRIC TONNES CO₂e EMITTED YTD';
 
-  const cards = buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, yearsRemaining15, budgetRemaining, budget15Remaining, carbonReleased, currentAnomaly, initialBudget, criticalThreshold);
+  const cards = buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, yearsRemaining15, budgetRemaining, budget15Remaining, carbonReleased, currentAnomaly, initialBudget, criticalThreshold, getAcceleratedTonnesPerSecond(calculateTimeElapsed(COUNTER_START_DATE).totalSeconds));
 
   return (
-    <section className="mb-10">
+    <section>
       <div
         className={`relative border ${isFireView ? '' : 'border-dark-border'} rounded-lg bg-dark-slate p-8 md:p-12 ${showBar ? 'pb-10 md:pb-14' : 'pb-8 md:pb-12'} overflow-hidden`}
         style={isFireView ? { borderColor: '#FF4D00', boxShadow: '0 0 30px rgba(255, 77, 0, 0.15)' } : undefined}
@@ -254,10 +261,10 @@ export default function MainCounter() {
                 transition={{ duration: 0.18 }}
                 className="absolute right-0 mt-2 w-72 rounded-md border border-dark-border bg-dark-card/95 p-2 backdrop-blur"
               >
-                <ViewOption label="2.0°C BUDGET REMAINING" isActive={activeView === VIEWS.BUDGET_20C} onClick={() => { setActiveView(VIEWS.BUDGET_20C); setMenuOpen(false); }} />
-                <ViewOption label="1.5°C BUDGET OVERSHOOT" isActive={activeView === VIEWS.BUDGET_15C_OVERSHOOT} onClick={() => { setActiveView(VIEWS.BUDGET_15C_OVERSHOOT); setMenuOpen(false); }} />
-                <ViewOption label="GLOBAL EMISSIONS YTD" isActive={activeView === VIEWS.TOTAL_EMISSIONS_SPEND} onClick={() => { setActiveView(VIEWS.TOTAL_EMISSIONS_SPEND); setMenuOpen(false); }} />
-                <ViewOption label="WILDFIRE LOSS" isActive={activeView === VIEWS.FOREST_LOSS} onClick={() => { setActiveView(VIEWS.FOREST_LOSS); setMenuOpen(false); }} />
+                <ViewOption label="2.0°C BUDGET REMAINING" isActive={activeView === VIEWS.BUDGET_20C} onClick={() => { handleViewChange(VIEWS.BUDGET_20C); setMenuOpen(false); }} />
+                <ViewOption label="1.5°C BUDGET OVERSHOOT" isActive={activeView === VIEWS.BUDGET_15C_OVERSHOOT} onClick={() => { handleViewChange(VIEWS.BUDGET_15C_OVERSHOOT); setMenuOpen(false); }} />
+                <ViewOption label="GLOBAL EMISSIONS YTD" isActive={activeView === VIEWS.TOTAL_EMISSIONS_SPEND} onClick={() => { handleViewChange(VIEWS.TOTAL_EMISSIONS_SPEND); setMenuOpen(false); }} />
+                <ViewOption label="WILDFIRE LOSS" isActive={activeView === VIEWS.FOREST_LOSS} onClick={() => { handleViewChange(VIEWS.FOREST_LOSS); setMenuOpen(false); }} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -346,11 +353,6 @@ export default function MainCounter() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* Budget Depletion Bar */}
-        {showBar && (
-          <BudgetDepletionBar budgetRemaining={budgetRemaining} initialBudget={initialBudget} criticalThreshold={criticalThreshold} />
-        )}
       </div>
 
       {/* Context Cards */}
@@ -372,6 +374,24 @@ export default function MainCounter() {
               >
                 {card.value}
               </p>
+              {card.trend && (
+                <p
+                  className="text-[11px] mt-1.5 tabular-nums font-medium"
+                  style={{ color: card.trend.isIncrease ? card.color : '#22C55E' }}
+                >
+                  {card.trend.isIncrease ? '▲' : '▼'}{' '}
+                  {card.trend.isIncrease ? '+' : '-'}{formatNumber(Math.abs(Math.round(card.trend.nominalChange)), 0)}{' '}
+                  ({card.trend.isIncrease ? '+' : '-'}{card.trend.ytdPctChange.toFixed(2)}% YTD)
+                </p>
+              )}
+              {card.buffer && (
+                <p
+                  className="text-[11px] mt-1.5 tabular-nums font-medium"
+                  style={{ color: card.color }}
+                >
+                  {formatNumber(Math.round(card.buffer.tonnes), 0)} tonnes until {card.buffer.nextPct.toFixed(1)}%
+                </p>
+              )}
               <p className="text-xs text-muted-text mt-2">{card.unit}</p>
             </motion.div>
           ))}
@@ -393,18 +413,26 @@ function secsToCountdown(totalSecs) {
   return { years: yrs, days: dys, hours: hrs, minutes: mns, seconds: scs };
 }
 
-function buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, yearsRemaining15, budgetRemaining, budget15Remaining, carbonReleased, currentAnomaly, initialBudget, criticalThreshold) {
+function buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, yearsRemaining15, budgetRemaining, budget15Remaining, carbonReleased, currentAnomaly, initialBudget, criticalThreshold, currentTonnesPerSecond) {
   const orangeGlow = '0 0 20px rgba(255, 159, 67, 0.5), 0 0 40px rgba(255, 159, 67, 0.3)';
   const blueGlow = '0 0 20px rgba(0, 210, 252, 0.5), 0 0 40px rgba(0, 210, 252, 0.3)';
   const fireGlow = '0 0 20px rgba(255, 77, 0, 0.5), 0 0 40px rgba(255, 77, 0, 0.3)';
   const redGlow = '0 0 20px rgba(185, 28, 28, 0.5), 0 0 40px rgba(185, 28, 28, 0.3)';
 
+  // Trend calculation for PER DAY cards
+  const baselineDailyRate = TONNES_PER_SECOND * 86400;
+  const currentDailyRate = currentTonnesPerSecond * 86400;
+  const nominalChange = currentDailyRate - baselineDailyRate;
+  const ytdPctChange = ((currentDailyRate / baselineDailyRate) - 1) * 100;
+  const isIncrease = nominalChange >= 0;
+  const trend = { nominalChange, ytdPctChange, isIncrease };
+
   if (activeView === VIEWS.TOTAL_EMISSIONS_SPEND) {
-    const perSec = TONNES_PER_SECOND;
+    const perSec = currentTonnesPerSecond;
     return [
       { label: 'PER SECOND', value: formatNumber(perSec, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
       { label: 'PER MINUTE', value: formatNumber(perSec * 60, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
-      { label: 'PER DAY', value: formatNumber(perSec * 86400, 0), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
+      { label: 'PER DAY', value: formatNumber(perSec * 86400, 0), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow, trend },
     ];
   }
 
@@ -416,10 +444,14 @@ function buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, 
     const isCritical = budgetRemaining < criticalThreshold;
     const color = isCritical ? '#B91C1C' : '#FF9F43';
     const glow = isCritical ? redGlow : orangeGlow;
+    const currentPct = parseFloat(remaining.toFixed(1));
+    const nextPct = Math.round((currentPct - 0.1) * 10) / 10;
+    const tonnesUntilNextPct = budgetRemaining - (nextPct / 100) * initialBudget;
+    const buffer = { tonnes: Math.max(tonnesUntilNextPct, 0), nextPct };
     return [
       { label: 'EST. DEPLETION DATE', value: dateStr, unit: '2.0°C budget exhausted', color, glow },
-      { label: 'PER DAY', value: formatNumber(Math.round(TONNES_PER_SECOND * 86400), 0), unit: 'tonnes CO₂e', color, glow },
-      { label: 'STOCKPILE REMAINING', value: `${remaining.toFixed(1)}%`, unit: `of ${formatNumber(initialBudget, 0)} tonnes CO₂e`, color, glow },
+      { label: 'PER DAY', value: formatNumber(Math.round(currentTonnesPerSecond * 86400), 0), unit: 'tonnes CO₂e', color, glow, trend },
+      { label: 'STOCKPILE REMAINING', value: `${remaining.toFixed(1)}%`, unit: `of ${formatNumber(initialBudget, 0)} tonnes CO₂e`, color, glow, buffer },
     ];
   }
 

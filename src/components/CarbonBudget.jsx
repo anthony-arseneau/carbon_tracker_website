@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CONFIG, TONNES_PER_SECOND } from '../config';
+import { CONFIG, getAcceleratedTotalEmissions, getYearsUntilBudgetDepleted } from '../config';
 import { calculateTimeElapsed } from '../utils';
 
 const ClockIcon = () => (
@@ -21,7 +21,7 @@ export default function CarbonBudget() {
   useEffect(() => {
     const updateBudget = () => {
       const elapsed = calculateTimeElapsed(CONFIG.startDate);
-      const totalEmissionsGt = (elapsed.totalSeconds * TONNES_PER_SECOND) / 1e9;
+      const totalEmissionsGt = getAcceleratedTotalEmissions(elapsed.totalSeconds) / 1e9;
       
       const remaining15 = Math.max(0, CONFIG.carbonBudget15 - totalEmissionsGt);
       const remaining20 = Math.max(0, CONFIG.carbonBudget20 - totalEmissionsGt);
@@ -29,9 +29,8 @@ export default function CarbonBudget() {
       const depleted15Percent = ((CONFIG.initialBudget15 - remaining15) / CONFIG.initialBudget15) * 100;
       const depleted20Percent = ((CONFIG.initialBudget20 - remaining20) / CONFIG.initialBudget20) * 100;
       
-      const annualEmissionsGt = CONFIG.annualTonnes / 1e9;
-      const yearsTo15 = remaining15 / annualEmissionsGt;
-      const yearsTo20 = remaining20 / annualEmissionsGt;
+      const yearsTo15 = getYearsUntilBudgetDepleted(remaining15 * 1e9, elapsed.totalSeconds);
+      const yearsTo20 = getYearsUntilBudgetDepleted(remaining20 * 1e9, elapsed.totalSeconds);
 
       setBudgetData({
         remaining15,

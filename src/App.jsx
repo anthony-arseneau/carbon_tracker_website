@@ -1,69 +1,74 @@
-import AbsorptionAlternatives from './components/AbsorptionAlternatives';
+import { useEffect, useState } from 'react';
 import ActionButtons from './components/ActionButtons';
-import AirQuality from './components/AirQuality';
-import BiosphereDegradation from './components/BiosphereDegradation';
-import CarbonBudget from './components/CarbonBudget';
-import EconomicCost from './components/EconomicCost';
 import EmissionEquivalents from './components/EmissionEquivalents';
 import Footer from './components/Footer';
-import GlobalEmissionMap from './components/GlobalEmissionMap';
 import Header from './components/Header';
 import HumanImpact from './components/HumanImpact';
-import MainCounter from './components/MainCounterV2';
+import MainCounter, { VIEWS } from './components/MainCounterV2';
 import ShareButtons from './components/ShareButtons';
 import Sources from './components/Sources';
+import VerticalDepletionGauge from './components/VerticalDepletionGauge';
+import { CONFIG, INITIAL_BUDGET_20C, getAcceleratedTotalEmissions } from './config';
 
 export default function App() {
+  const [budget20Remaining, setBudget20Remaining] = useState(INITIAL_BUDGET_20C);
+  const [activeView, setActiveView] = useState(VIEWS.BUDGET_20C);
+  const show20CGauge = activeView === VIEWS.BUDGET_20C;
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      const elapsedSeconds = (now - CONFIG.startDate) / 1000;
+      const spent = getAcceleratedTotalEmissions(elapsedSeconds);
+      setBudget20Remaining(Math.max(INITIAL_BUDGET_20C - spent, 0));
+    };
+    update();
+    const interval = setInterval(update, CONFIG.updateInterval);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen text-white flex justify-center">
       {/* Background overlays */}
       <div className="noise-overlay" />
       <div className="grid-overlay" />
       
       {/* Main content */}
-      <div className="max-w-5xl mx-auto px-4 py-8 relative z-10">
+      <div className="max-w-5xl w-full mx-auto px-4 py-8 relative z-10">
         {/* A. Header */}
         <Header />
-        
-        {/* B. Main Counter + Context Cards */}
-        <MainCounter />
-        
+
+        {/* B. Main Counter + Vertical Gauge */}
+        <div className="flex flex-row gap-4 mb-10">
+          <div className="flex-1 min-w-0">
+            <MainCounter onViewChange={setActiveView} />
+          </div>
+          {show20CGauge && (
+            <div className="hidden lg:flex w-32 shrink-0">
+              <VerticalDepletionGauge budgetRemaining={budget20Remaining} />
+            </div>
+          )}
+        </div>
+
         {/* Share Buttons */}
         <ShareButtons />
-        
+
         {/* D. Human Impact */}
         <HumanImpact />
-        
-        {/* Global Emission Map 
-        <GlobalEmissionMap />*/}
-        
-        {/* Biosphere Degradation - Wildfire Analysis 
-        <BiosphereDegradation />*/}
-        
+
         {/* E. Emission Equivalents */}
         <EmissionEquivalents />
-        
-        {/* F. Carbon Budget
-        <CarbonBudget /> */}
-        
-        {/* G. Absorption Alternatives
-        <AbsorptionAlternatives /> */}
-        
-        {/* Economic Cost */}
-        {/* <EconomicCost /> */}
-        
-        {/* Air Quality & Mortality */}
-        {/* <AirQuality /> */}
-        
+
         {/* H. Sources */}
         <Sources />
-        
+
         {/* I. Action Buttons */}
         <ActionButtons />
-        
+
         {/* J. Footer */}
         <Footer />
       </div>
     </div>
   );
 }
+

@@ -1,11 +1,24 @@
-import { TONNES_PER_DAY, TONNES_PER_MINUTE, TONNES_PER_SECOND } from '../config';
-import { formatNumber } from '../utils';
+import { useEffect, useState } from 'react';
+import { CONFIG, getAcceleratedTonnesPerSecond } from '../config';
+import { calculateTimeElapsed, formatNumber } from '../utils';
 
 export default function RateCards() {
+  const [currentPerSec, setCurrentPerSec] = useState(getAcceleratedTonnesPerSecond(0));
+
+  useEffect(() => {
+    const update = () => {
+      const elapsed = calculateTimeElapsed(CONFIG.startDate);
+      setCurrentPerSec(getAcceleratedTonnesPerSecond(elapsed.totalSeconds));
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   const rates = [
-    { label: 'PER SECOND', value: TONNES_PER_SECOND, decimals: 2 },
-    { label: 'PER MINUTE', value: TONNES_PER_MINUTE, decimals: 2 },
-    { label: 'PER DAY', value: TONNES_PER_DAY, decimals: 0 },
+    { label: 'PER SECOND', value: currentPerSec, decimals: 2 },
+    { label: 'PER MINUTE', value: currentPerSec * 60, decimals: 2 },
+    { label: 'PER DAY', value: currentPerSec * 86400, decimals: 0 },
   ];
 
   return (

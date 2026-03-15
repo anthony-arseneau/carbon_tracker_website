@@ -1,14 +1,14 @@
 
 
-import { CONFIG, INITIAL_BUDGET_20C, SECONDS_PER_YEAR, TONNES_PER_SECOND } from '../config';
+import { CONFIG, getAcceleratedTotalEmissions, getYearsUntilBudgetDepleted, INITIAL_BUDGET_20C } from '../config';
 import { calculateTimeElapsed } from '../utils';
 
 export default function ShareButtons() {
   const getYearsRemaining = () => {
     const elapsed = calculateTimeElapsed(CONFIG.startDate);
-    const spent = elapsed.totalSeconds * TONNES_PER_SECOND;
+    const spent = getAcceleratedTotalEmissions(elapsed.totalSeconds);
     const remaining = Math.max(INITIAL_BUDGET_20C - spent, 0);
-    return remaining / (TONNES_PER_SECOND * SECONDS_PER_YEAR);
+    return getYearsUntilBudgetDepleted(remaining, elapsed.totalSeconds);
   };
 
   const shareTwitter = () => {
