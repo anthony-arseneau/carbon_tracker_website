@@ -1,19 +1,19 @@
 
 
-import { CONFIG, INITIAL_BUDGET_15C, SECONDS_PER_YEAR, TONNES_PER_SECOND } from '../config';
+import { CONFIG, INITIAL_BUDGET_20C, SECONDS_PER_YEAR, TONNES_PER_SECOND } from '../config';
 import { calculateTimeElapsed } from '../utils';
 
 export default function ShareButtons() {
   const getYearsRemaining = () => {
     const elapsed = calculateTimeElapsed(CONFIG.startDate);
     const spent = elapsed.totalSeconds * TONNES_PER_SECOND;
-    const remaining = Math.max(INITIAL_BUDGET_15C - spent, 0);
+    const remaining = Math.max(INITIAL_BUDGET_20C - spent, 0);
     return remaining / (TONNES_PER_SECOND * SECONDS_PER_YEAR);
   };
 
   const shareTwitter = () => {
     const yearsRemaining = getYearsRemaining();
-    const text = `Global carbon emissions since Jan 1, 2026 are rising rapidly. We have ~${yearsRemaining.toFixed(2)} years until the 1.5°C carbon budget is exhausted`;
+    const text = `Global emissions since Jan 1, 2026 are rising rapidly. We have ~${yearsRemaining.toFixed(2)} years until the 2.0°C emissions budget is exhausted`;
     const url = encodeURIComponent(window.location.href);
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`, '_blank');
   };
