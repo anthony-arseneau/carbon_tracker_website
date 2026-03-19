@@ -4,14 +4,6 @@ import { formatLargeNumber } from '../utils';
 export default function Header() {
   return (
     <header className="text-center mb-12">
-      <div className="flex items-center justify-center gap-4 text-xs tracking-[0.3em] text-muted-text mb-4 flex-wrap">
-        <span className="animate-blink text-neon-orange">●</span>
-        <span>LIVE ESTIMATE</span>
-        <span className="text-dark-border">·</span>
-        <span>EMISSIONS BUDGET</span>
-        <span className="text-dark-border">·</span>
-        <span>TRACKING SINCE JAN 1, 2026</span>
-      </div>
       
       <h1 className="text-3xl md:text-4xl font-bold tracking-[0.15em] mb-3 text-white">
         GLOBAL EMISSIONS BUDGET
