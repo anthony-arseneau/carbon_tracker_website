@@ -428,11 +428,13 @@ function buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, 
   const trend = { nominalChange, ytdPctChange, isIncrease };
 
   if (activeView === VIEWS.TOTAL_EMISSIONS_SPEND) {
-    const perSec = currentTonnesPerSecond;
+    // Always use the latest emission rate for each card
+    const elapsed = calculateTimeElapsed(CONFIG.startDate);
+    const perSecond = getAcceleratedTonnesPerSecond(elapsed.totalSeconds);
     return [
-      { label: 'PER SECOND', value: formatNumber(perSec, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
-      { label: 'PER MINUTE', value: formatNumber(perSec * 60, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
-      { label: 'PER DAY', value: formatNumber(perSec * 86400, 0), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow, trend },
+      { label: 'PER SECOND', value: formatNumber(perSecond, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
+      { label: 'PER MINUTE', value: formatNumber(perSecond * 60, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
+      { label: 'PER DAY', value: formatNumber(perSecond * 86400, 0), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow, trend },
     ];
   }
 

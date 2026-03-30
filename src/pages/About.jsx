@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 export default function About() {
   return (
     <div className="min-h-screen text-white">
       <div className="noise-overlay" />
       <div className="grid-overlay" />
+      <NavBar />
 
       <main className="max-w-[900px] mx-auto px-4 py-8 relative z-10">
         <div className="border border-dark-border rounded-xl bg-dark-card p-7 glow-cyan">
@@ -26,12 +27,7 @@ export default function About() {
             legal compliance.
           </p>
 
-          <Link
-            to="/"
-            className="inline-block mt-4 text-neon-cyan border border-neon-cyan rounded-lg px-4 py-2.5 text-sm transition-all hover:bg-neon-cyan/10 hover:-translate-y-0.5"
-          >
-            ← Go Back To Main Page
-          </Link>
+
         </div>
       </main>
     </div>

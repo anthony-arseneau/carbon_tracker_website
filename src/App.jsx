@@ -5,10 +5,13 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import HumanImpact from './components/HumanImpact';
 import MainCounter, { VIEWS } from './components/MainCounterV2';
+import NavBar from './components/NavBar';
 import ShareButtons from './components/ShareButtons';
+import CO2SphereVisualization from './components/CO2SphereVisualization'
 import Sources from './components/Sources';
 import VerticalDepletionGauge from './components/VerticalDepletionGauge';
 import { CONFIG, INITIAL_BUDGET_20C, getAcceleratedTotalEmissions } from './config';
+import TrajectorySection from './components/TrajectorySection';
 
 export default function App() {
   const [budget20Remaining, setBudget20Remaining] = useState(INITIAL_BUDGET_20C);
@@ -28,17 +31,20 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen text-white flex justify-center">
+    <div className="min-h-screen text-white">
       {/* Background overlays */}
       <div className="noise-overlay" />
       <div className="grid-overlay" />
-      
+
+      {/* A. Navigation Bar (sticky, full-width) */}
+      <NavBar />
+
       {/* Main content */}
       <div className="max-w-5xl w-full mx-auto px-4 py-8 relative z-10">
-        {/* A. Header */}
+        {/* B. Header */}
         <Header />
 
-        {/* B. Main Counter + Vertical Gauge */}
+        {/* C. Main Counter + Vertical Gauge */}
         <div className="flex flex-row gap-4 mb-10">
           <div className="flex-1 min-w-0">
             <MainCounter onViewChange={setActiveView} />
@@ -53,21 +59,21 @@ export default function App() {
         {/* Share Buttons */}
         <ShareButtons />
 
+        {/* Scale Section */}
+        <CO2SphereVisualization />
+
+        {/* Consequences Section */}
+        <TrajectorySection />
+
         {/* D. Human Impact */}
         <HumanImpact />
 
-        {/* E. Emission Equivalents */}
-        <EmissionEquivalents />
-
-        {/* H. Sources */}
-        <Sources />
-
         {/* I. Action Buttons */}
         <ActionButtons />
-
-        {/* J. Footer */}
-        <Footer />
       </div>
+
+      {/* J. Footer (full-width, outside max-w container) */}
+      <Footer />
     </div>
   );
 }
