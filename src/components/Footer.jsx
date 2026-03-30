@@ -9,7 +9,7 @@ const DATA_PARTNERS = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-slate-950 border-t border-dark-border py-12 relative z-10">
+    <footer className="w-full bg-dark-card border-t border-dark-border py-12 relative z-10">
       <div className="max-w-5xl mx-auto px-4">
 
         {/* 3-column grid → 1-column on mobile */}
@@ -29,14 +29,14 @@ export default function Footer() {
                   About
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="mailto:contact@emissionsbudget.com"
                   className="text-slate-400 hover:text-white text-xs font-mono tracking-widest transition-colors duration-200"
                 >
                   Contact Us
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -72,14 +72,15 @@ export default function Footer() {
             </h3>
             <div className="flex flex-row flex-wrap justify-center md:justify-start gap-3">
               {DATA_PARTNERS.map((p) => (
-                <div
+                <Link
+                  to="/methodology"
                   key={p.abbr}
                   title={p.name}
                   className="grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default border rounded px-2.5 py-1.5 text-[10px] font-mono font-bold tracking-[0.2em]"
                   style={{ color: p.color, borderColor: p.color }}
                 >
                   {p.abbr}
-                </div>
+                </Link>
               ))}
             </div>
           </div>

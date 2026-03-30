@@ -27,7 +27,7 @@ export default function SystemDiagnostics() {
       <main className="max-w-5xl mx-auto px-4 py-12 relative z-10">
 
         {/* Page header */}
-        <div className="mb-10">
+        {/* <div className="mb-10">
           <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-3">
             MODULE · SYSTEM DIAGNOSTICS
           </p>
@@ -37,10 +37,10 @@ export default function SystemDiagnostics() {
           <p className="text-sm text-muted-text font-mono tracking-wide">
             Real-time health check of all data ingestion pipelines and monitoring modules.
           </p>
-        </div>
+        </div> */}
 
         {/* Diagnostics table */}
-        <div className="mb-12 border border-dark-border rounded-xl overflow-hidden bg-dark-card">
+        {/* <div className="mb-12 border border-dark-border rounded-xl overflow-hidden bg-dark-card">
           <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-6 px-6 py-3 border-b border-dark-border bg-slate-950/60 text-[10px] tracking-[0.25em] text-muted-text font-mono uppercase">
             <span>ID</span>
             <span>MODULE</span>
@@ -64,13 +64,13 @@ export default function SystemDiagnostics() {
               </div>
             );
           })}
-        </div>
+        </div> */}
 
         {/* CO₂ 1-Tonne Sphere Visualization */}
-        <CO2SphereVisualization />
+        {/* <CO2SphereVisualization /> */}
 
         {/* E. Emission Equivalents */}
-        <EmissionEquivalents />
+        {/* <EmissionEquivalents /> */}
 
         {/* Under construction notice */}
         <div className="mt-10 border border-neon-yellow/30 rounded-xl bg-neon-yellow/5 px-6 py-5 flex items-start gap-4">

@@ -73,7 +73,7 @@ export default function TermsOfService() {
         </div>
 
         {/* Contact note */}
-        <div className="mt-8 border border-dark-border/50 rounded-xl bg-slate-950/60 px-6 py-5">
+        {/* <div className="mt-8 border border-dark-border/50 rounded-xl bg-slate-950/60 px-6 py-5">
           <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-2">
             QUESTIONS?
           </p>
@@ -87,7 +87,7 @@ export default function TermsOfService() {
             </a>
             .
           </p>
-        </div>
+        </div> */}
 
       </main>
     </div>

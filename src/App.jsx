@@ -11,6 +11,7 @@ import CO2SphereVisualization from './components/CO2SphereVisualization'
 import Sources from './components/Sources';
 import VerticalDepletionGauge from './components/VerticalDepletionGauge';
 import { CONFIG, INITIAL_BUDGET_20C, getAcceleratedTotalEmissions } from './config';
+import TrajectorySection from './components/TrajectorySection';
 
 export default function App() {
   const [budget20Remaining, setBudget20Remaining] = useState(INITIAL_BUDGET_20C);
@@ -58,7 +59,11 @@ export default function App() {
         {/* Share Buttons */}
         <ShareButtons />
 
+        {/* Scale Section */}
         <CO2SphereVisualization />
+
+        {/* Consequences Section */}
+        <TrajectorySection />
 
         {/* D. Human Impact */}
         <HumanImpact />

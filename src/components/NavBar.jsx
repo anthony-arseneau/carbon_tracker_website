@@ -41,7 +41,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 w-full bg-slate-950/80 backdrop-blur-md border-b border-dark-border">
+      <nav className="sticky top-0 z-50 w-full bg-dark-card backdrop-blur-md border-b border-dark-border">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           {/* Left: Branding */}
           <Link

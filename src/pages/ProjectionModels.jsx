@@ -49,7 +49,7 @@ export default function ProjectionModels() {
       <main className="max-w-[900px] mx-auto px-4 py-12 relative z-10">
 
         {/* Page header */}
-        <div className="mb-10">
+        {/* <div className="mb-10">
           <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-3">
             MODULE · PROJECTION MODELS
           </p>
@@ -59,10 +59,10 @@ export default function ProjectionModels() {
           <p className="text-sm text-muted-text font-mono tracking-wide">
             IPCC Representative Concentration Pathways (RCPs) — projected outcomes by end of century.
           </p>
-        </div>
+        </div> */}
 
         {/* Model cards */}
-        <div className="flex flex-col gap-4">
+        {/* <div className="flex flex-col gap-4">
           {MODELS.map((m) => (
             <div
               key={m.id}
@@ -94,7 +94,7 @@ export default function ProjectionModels() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Under construction notice */}
         <div className="mt-10 border border-neon-cyan/30 rounded-xl bg-neon-cyan/5 px-6 py-5 flex items-start gap-4">
