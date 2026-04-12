@@ -47,13 +47,13 @@ export default function TermsOfService() {
         {/* Page header */}
         <div className="mb-10">
           <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-3">
-            LEGAL · TERMS OF SERVICE
+            Legal · Terms of Service
           </p>
           <h1 className="text-2xl md:text-3xl font-bold tracking-widest font-mono mb-2">
-            TERMS OF SERVICE
+            Terms of Service
           </h1>
           <p className="text-xs text-muted-text font-mono tracking-widest">
-            LAST UPDATED: MARCH 2026
+            Last Updated: March 2026
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { GAUGE_CONFIG } from '../config';
 
 /**
@@ -12,7 +12,6 @@ function splitPrefix(value, prefixLength) {
   for (let i = 0; i < formatted.length; i++) {
     if (formatted[i] >= '0' && formatted[i] <= '9') digitsSeen++;
     if (digitsSeen >= prefixLength) {
-      // include trailing comma/separator if present
       splitIdx = i + 1;
       if (formatted[splitIdx] === ',') splitIdx++;
       break;
@@ -24,8 +23,97 @@ function splitPrefix(value, prefixLength) {
   };
 }
 
-/* ── Micro-Ticker (top 25%) ──────────────────────────────── */
-function MicroTicker({ budgetRemaining }) {
+/* ── Layout constants ─────────────────────────────────────── */
+const SCALE_RANGE_PCT = 75;       // T-scale occupies the bottom 75% of gauge
+const INDICATOR_HEIGHT_PCT = 25;  // floating indicator height
+
+/* ── Animated Wave Surface ────────────────────────────────── */
+function WaveSurface() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animId;
+    let w = 0, h = 0;
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      w = rect.width;
+      h = rect.height;
+      if (w === 0 || h === 0) return;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+
+    const draw = () => {
+      if (w === 0 || h === 0) resize();
+      if (w > 0 && h > 0) {
+        ctx.clearRect(0, 0, w, h);
+        const t = performance.now() / 1000;
+        const baseline = h / 2;
+
+        const getY = (x) => {
+          const nx = x / w;
+          return baseline
+            + 1.8 * Math.sin(nx * Math.PI * 4 + t * 0.9)
+            + 1.0 * Math.sin(nx * Math.PI * 7 - t * 1.3)
+            + 0.5 * Math.sin(nx * Math.PI * 11 + t * 0.6);
+        };
+
+        // ── Fill below wave — gradient matches solid fill at bottom ──
+        ctx.beginPath();
+        ctx.moveTo(0, getY(0));
+        for (let x = 1; x <= w; x++) ctx.lineTo(x, getY(x));
+        ctx.lineTo(w, h);
+        ctx.lineTo(0, h);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(251,146,60,0.35)';
+        ctx.fill();
+
+        // ── Glowing wave stroke ──
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(0, getY(0));
+        for (let x = 1; x <= w; x++) ctx.lineTo(x, getY(x));
+
+        ctx.shadowColor = 'rgba(251,146,60,1)';
+        ctx.shadowBlur = 12;
+        ctx.strokeStyle = 'rgba(251,146,60,0.5)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.shadowColor = 'rgba(251,146,60,0.6)';
+        ctx.shadowBlur = 6;
+        ctx.strokeStyle = 'rgba(251,146,60,0.9)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      animId = requestAnimationFrame(draw);
+    };
+    draw();
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+    return () => { cancelAnimationFrame(animId); ro.disconnect(); };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-30 w-full h-full pointer-events-none"
+    />
+  );
+}
+
+/* ── Floating Indicator (fine-grain ticker + wave) ────────── */
+function FloatingIndicator({ budgetRemaining }) {
   const { MARKER_INTERVAL, LABEL_INTERVAL, PIXELS_PER_INTERVAL, PREFIX_LENGTH } = GAUGE_CONFIG;
   const pixelsPerTonne = PIXELS_PER_INTERVAL / LABEL_INTERVAL;
 
@@ -71,24 +159,15 @@ function MicroTicker({ budgetRemaining }) {
   }, [budgetRemaining, pixelsPerTonne, MARKER_INTERVAL, LABEL_INTERVAL, PREFIX_LENGTH]);
 
   return (
-    <div className="relative flex-[1] overflow-hidden">
-      {/* Neon-orange fill below the live edge — fades from orange at bottom to transparent exactly at the line */}
-      <div
-        className="absolute bottom-0 left-0 right-0"
-        style={{
-          height: '50%',
-          background: 'linear-gradient(to top, rgba(251,146,60,0.22), rgba(251,146,60,0.07) 70%, transparent 100%)',
-        }}
-      />
-
+    <div className="relative w-full h-full overflow-hidden">
       {/* Moving markers */}
       <div className="absolute inset-0 pointer-events-none select-none">
         {markers}
       </div>
 
-      {/* Static prefix — left-aligned to border, just above the level line */}
+      {/* Static prefix — left-aligned, just above the level line */}
       <div
-        className="absolute z-40 pointer-events-none"
+        className="absolute z-50 pointer-events-none"
         style={{ top: '50%', left: '28px', transform: 'translateY(-90%)' }}
       >
         <span className="text-[9px] font-mono text-white/75 tabular-nums whitespace-nowrap">
@@ -96,53 +175,34 @@ function MicroTicker({ budgetRemaining }) {
         </span>
       </div>
 
-      {/* Live Edge Indicator Line */}
-      <div
-        className="absolute top-1/2 left-0 right-0 h-[2px] bg-orange-400 z-30"
-        style={{
-          filter: 'drop-shadow(0 0 6px rgba(251,146,60,1)) drop-shadow(0 0 14px rgba(251,146,60,0.5))',
-        }}
-      />
+      {/* Animated wave surface */}
+      <WaveSurface />
 
-      {/* Glass depth fades — heavy top & bottom, clear only in the center */}
-      <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-dark-card via-dark-card/80 to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-dark-card/90 to-transparent z-20 pointer-events-none" />
+      {/* Glass depth fades — top and bottom edges dim out for separation (z-40 to render above wave canvas z-30) */}
+      <div className="absolute inset-x-0 top-0 h-[40%] bg-gradient-to-b from-dark-card via-dark-card/70 to-transparent z-40 pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-[25%] bg-gradient-to-t from-dark-card/60 to-transparent z-40 pointer-events-none" />
       {/* Glass glare — subtle highlight from top-left */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent z-40 pointer-events-none" />
+      {/* Glass border overlay — soft inner edge */}
+      <div className="absolute inset-0 rounded-sm z-40 pointer-events-none" style={{ boxShadow: 'inset 0 0 12px 4px rgba(10,11,16,0.5)' }} />
     </div>
   );
 }
 
-/* ── Macro-Tank (bottom 75%) ─────────────────────────────── */
-function MacroTank({ budgetRemaining }) {
+/* ── Tank Scale Marks ─────────────────────────────────────── */
+function TankScale() {
   const { TOTAL_BUDGET } = GAUGE_CONFIG;
-  const pctRemaining = Math.max(Math.min(budgetRemaining / TOTAL_BUDGET, 1), 0);
-
-  // Scale labels: every 100 Gt from 0 to 1150 Gt
   const SCALE_STEP = 100_000_000_000; // 100 Gt
   const scaleMarks = [];
   for (let v = 0; v <= TOTAL_BUDGET; v += SCALE_STEP) {
-    // position from top: higher values = higher up (bottom = 0, top = TOTAL_BUDGET)
-    const topPct = (1 - v / TOTAL_BUDGET) * 100;
+    const fromBottomPct = (v / TOTAL_BUDGET) * SCALE_RANGE_PCT;
+    const topPct = 100 - fromBottomPct;
     const label = v === 0 ? '0' : `${(v / 1_000_000_000_000).toFixed(v % 1_000_000_000_000 === 0 ? 0 : 1).replace(/^0\./, '.')} T`;
     scaleMarks.push({ topPct, label });
   }
 
   return (
-    <div className="relative flex-[3] border-t border-dark-border overflow-hidden">
-      {/* Exhausted (grey) background */}
-      <div className="absolute inset-0 bg-white/[0.03]" />
-
-      {/* Remaining (orange fill) — solid constant orange */}
-      <div
-        className="absolute bottom-0 left-0 right-0 transition-all duration-300"
-        style={{
-          height: `${pctRemaining * 100}%`,
-          background: 'rgba(251,146,60,0.35)',
-        }}
-      />
-
-      {/* Scale marks */}
+    <>
       {scaleMarks.map(({ topPct, label }) => (
         <div
           key={label}
@@ -158,26 +218,59 @@ function MacroTank({ budgetRemaining }) {
           </span>
         </div>
       ))}
-
-      {/* Stockpile label */}
-      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-1 pointer-events-none z-10">
-        <span
-          className="text-[9px] font-mono uppercase tracking-widest whitespace-nowrap"
-          style={{ color: 'rgba(255,255,255,0.35)', textShadow: '0 0 6px rgba(0,0,0,0.9)' }}
-        >
-          stockpile
-        </span>
-      </div>
-    </div>
+    </>
   );
 }
 
 /* ── VerticalDepletionGauge (combined) ───────────────────── */
 export default function VerticalDepletionGauge({ budgetRemaining }) {
+  const { TOTAL_BUDGET } = GAUGE_CONFIG;
+  const pctRemaining = Math.max(Math.min(budgetRemaining / TOTAL_BUDGET, 1), 0);
+
+  // Fill spans the bottom SCALE_RANGE_PCT of the gauge, proportional to remaining budget.
+  // The floating indicator sits with its bottom aligned to the top of the fill.
+  const fillPct = pctRemaining * SCALE_RANGE_PCT;
+  const indicatorBottomPct = fillPct;
+
   return (
-    <div className="flex flex-col h-full w-32 border border-dark-border rounded-lg bg-dark-card overflow-hidden">
-      <MicroTicker budgetRemaining={budgetRemaining} />
-      <MacroTank budgetRemaining={budgetRemaining} />
+    <div className="relative h-full w-32 border border-dark-border rounded-lg bg-dark-slate overflow-hidden">
+      {/* Exhausted (grey) background — full tank */}
+      <div className="absolute inset-0 bg-white/[0.03]" />
+
+      {/* Remaining (orange fill) — anchored to bottom, height synced with indicator */}
+      <div
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          height: `${fillPct}%`,
+          background: 'rgba(251,146,60,0.35)',
+          transition: 'height 0.3s ease',
+        }}
+      />
+
+      {/* T-scale marks — positioned within the bottom 75% of gauge */}
+      <TankScale />
+
+      {/* Stockpile label */}
+      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-1 pointer-events-none z-10">
+        <span
+          className="text-[9px] font-mono tracking-widest whitespace-nowrap"
+          style={{ color: 'rgba(255,255,255,0.35)', textShadow: '0 0 6px rgba(0,0,0,0.9)' }}
+        >
+          Stockpile
+        </span>
+      </div>
+
+      {/* Floating indicator — rides on top of the liquid level */}
+      <div
+        className="absolute left-0 right-0 z-10"
+        style={{
+          height: `${INDICATOR_HEIGHT_PCT}%`,
+          bottom: `${indicatorBottomPct}%`,
+          transition: 'bottom 0.3s ease',
+        }}
+      >
+        <FloatingIndicator budgetRemaining={budgetRemaining} />
+      </div>
     </div>
   );
 }

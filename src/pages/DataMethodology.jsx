@@ -63,10 +63,10 @@ export default function DataMethodology() {
         {/* Page header */}
         <div>
           <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-3">
-            MODULE · DATA &amp; METHODOLOGY
+            Module · Data &amp; Methodology
           </p>
           <h1 className="text-2xl md:text-3xl font-bold tracking-widest font-mono mb-2">
-            DATA CALIBRATION &amp; SOURCES
+            Data Calibration &amp; Sources
           </h1>
           <p className="text-sm text-muted-text font-mono tracking-wide">
             Transparency record for all data pipelines, assumptions, and scientific references used by this dashboard.
@@ -76,7 +76,7 @@ export default function DataMethodology() {
         {/* Data Sources */}
         <section>
           <h2 className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-5">
-            PRIMARY DATA SOURCES
+            Primary Data Sources
           </h2>
           <div className="flex flex-col gap-3">
             {SOURCES.map((s) => (
@@ -108,7 +108,7 @@ export default function DataMethodology() {
         {/* Methodology FAQ */}
         <section>
           <h2 className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-5">
-            METHODOLOGY: FREQUENTLY ASKED QUESTIONS
+            Methodology: Frequently Asked Questions
           </h2>
           <div className="flex flex-col gap-4">
             {METHODOLOGY.map((item, i) => (
@@ -126,7 +126,7 @@ export default function DataMethodology() {
         {/* Disclaimer */}
         <div className="border border-dark-border/50 rounded-xl bg-slate-950/60 px-6 py-5">
           <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-2">
-            DISCLAIMER
+            Disclaimer
           </p>
           <p className="text-muted-text text-xs font-mono leading-relaxed">
             All figures are informative estimates designed for public awareness and education. They are

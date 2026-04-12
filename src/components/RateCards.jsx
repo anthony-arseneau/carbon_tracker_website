@@ -16,9 +16,9 @@ export default function RateCards() {
   }, []);
 
   const rates = [
-    { label: 'PER SECOND', value: currentPerSec, decimals: 2 },
-    { label: 'PER MINUTE', value: currentPerSec * 60, decimals: 2 },
-    { label: 'PER DAY', value: currentPerSec * 86400, decimals: 0 },
+    { label: 'Per Second', value: currentPerSec, decimals: 2 },
+    { label: 'Per Minute', value: currentPerSec * 60, decimals: 2 },
+    { label: 'Per Day', value: currentPerSec * 86400, decimals: 0 },
   ];
 
   return (

@@ -20,7 +20,7 @@ export default function HumanImpact() {
   const impacts = [
     {
       icon: <SunIcon />,
-      label: 'EXCESS HEAT DEATHS',
+      label: 'Excess Heat Deaths',
       value: `${formatNumber(CONFIG.heatDeaths)}+`,
       subtitle: 'annually worldwide',
       colorClass: 'text-neon-red text-glow-red',
@@ -28,7 +28,7 @@ export default function HumanImpact() {
     },
     {
       icon: <LocationIcon />,
-      label: 'CLIMATE REFUGEES',
+      label: 'Climate Refugees',
       value: `${formatNumber(CONFIG.climateRefugees / 1000000, 1)}M+`,
       subtitle: 'displaced annually',
       colorClass: 'text-neon-red text-glow-red',
@@ -36,7 +36,7 @@ export default function HumanImpact() {
     },
     {
       icon: <Wind className="w-6 h-6 text-neon-red"/>,
-      label: 'AIR POLLUTION DEATHS',
+      label: 'Air Pollution Deaths',
       value: `${formatNumber(CONFIG.pollutionDeaths / 1000000, 1)}M+`,
       subtitle: 'annually from fossil fuels',
       colorClass: 'text-neon-red text-glow-red',
@@ -47,7 +47,7 @@ export default function HumanImpact() {
   return (
     <section className="mb-12">
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        ESTIMATED HUMAN IMPACT
+        Estimated Human Impact
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

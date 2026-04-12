@@ -188,10 +188,10 @@ export default function MainCounter({ onViewChange }) {
   const tickerTheme = getTickerTheme(activeView, budgetRemaining, criticalThreshold);
 
   const currentHeader =
-    is20C ? 'EST. GLOBAL EMISSIONS BUDGET TO STAY BELOW 2.0ºC'
-    : is15Overshoot ? 'EST. GLOBAL EMISSIONS OVERSHOOT ABOVE 1.5ºC'
-    : isFireView ? 'EST. GLOBAL WILDFIRE LOSS'
-    : 'EST. GLOBAL EMISSIONS';
+    is20C ? 'Est. Global Emissions Budget to Stay Below 2.0ºC'
+    : is15Overshoot ? 'Est. Global Emissions Overshoot Above 1.5ºC'
+    : isFireView ? 'Est. Global Wildfire Loss'
+    : 'Est. Global Emissions';
 
   const currentSubLabel =
     is20C ? 'METRIC TONNES OF CO₂e REMAINING'
@@ -261,10 +261,10 @@ export default function MainCounter({ onViewChange }) {
                 transition={{ duration: 0.18 }}
                 className="absolute right-0 mt-2 w-72 rounded-md border border-dark-border bg-dark-card/95 p-2 backdrop-blur"
               >
-                <ViewOption label="2.0°C BUDGET REMAINING" isActive={activeView === VIEWS.BUDGET_20C} onClick={() => { handleViewChange(VIEWS.BUDGET_20C); setMenuOpen(false); }} />
-                <ViewOption label="1.5°C BUDGET OVERSHOOT" isActive={activeView === VIEWS.BUDGET_15C_OVERSHOOT} onClick={() => { handleViewChange(VIEWS.BUDGET_15C_OVERSHOOT); setMenuOpen(false); }} />
-                <ViewOption label="GLOBAL EMISSIONS YTD" isActive={activeView === VIEWS.TOTAL_EMISSIONS_SPEND} onClick={() => { handleViewChange(VIEWS.TOTAL_EMISSIONS_SPEND); setMenuOpen(false); }} />
-                <ViewOption label="WILDFIRE LOSS" isActive={activeView === VIEWS.FOREST_LOSS} onClick={() => { handleViewChange(VIEWS.FOREST_LOSS); setMenuOpen(false); }} />
+                <ViewOption label="2.0°C Budget Remaining" isActive={activeView === VIEWS.BUDGET_20C} onClick={() => { handleViewChange(VIEWS.BUDGET_20C); setMenuOpen(false); }} />
+                <ViewOption label="1.5°C Budget Overshoot" isActive={activeView === VIEWS.BUDGET_15C_OVERSHOOT} onClick={() => { handleViewChange(VIEWS.BUDGET_15C_OVERSHOOT); setMenuOpen(false); }} />
+                <ViewOption label="Global Emissions YTD" isActive={activeView === VIEWS.TOTAL_EMISSIONS_SPEND} onClick={() => { handleViewChange(VIEWS.TOTAL_EMISSIONS_SPEND); setMenuOpen(false); }} />
+                <ViewOption label="Wildfire Loss" isActive={activeView === VIEWS.FOREST_LOSS} onClick={() => { handleViewChange(VIEWS.FOREST_LOSS); setMenuOpen(false); }} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -308,7 +308,7 @@ export default function MainCounter({ onViewChange }) {
             >
               {is20C ? (
                 <div>
-                  <p className="text-xs tracking-[0.2em] text-muted-text mb-2">TIME REMAINING UNTIL BUDGET DEPLETION</p>
+                  <p className="text-xs tracking-[0.2em] text-muted-text mb-2">Time Remaining Until Budget Depletion</p>
                   <div className="flex justify-center items-center gap-1 md:gap-2 text-xl md:text-3xl font-semibold">
                     <TimeUnit value={budgetCountdown.years} label="YRS" />
                     <span className="text-muted-text">:</span>
@@ -323,7 +323,7 @@ export default function MainCounter({ onViewChange }) {
                 </div>
               ) : is15Overshoot ? (
                 <div>
-                  <p className="text-xs tracking-[0.2em] text-muted-text mb-2">TIME ELAPSED SINCE 1.5°C THRESHOLD BREACH</p>
+                  <p className="text-xs tracking-[0.2em] text-muted-text mb-2">Time Elapsed Since 1.5°C Threshold Breach</p>
                   <div className="flex justify-center items-center gap-1 md:gap-2 text-xl md:text-3xl font-semibold">
                     <TimeUnit value={breachElapsed.years} label="YRS" />
                     <span className="text-muted-text">:</span>
@@ -338,7 +338,7 @@ export default function MainCounter({ onViewChange }) {
                 </div>
               ) : (
                 <div>
-                  <p className="text-xs tracking-[0.2em] text-muted-text mb-2">TIME ELAPSED SINCE JAN 1, 2026</p>
+                  <p className="text-xs tracking-[0.2em] text-muted-text mb-2">Time Elapsed Since Jan 1, 2026</p>
                   <div className="flex justify-center items-center gap-2 text-2xl md:text-3xl font-semibold">
                     <TimeUnit value={timeElapsed.days} label="DAYS" />
                     <span className="text-muted-text">:</span>
@@ -432,9 +432,9 @@ function buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, 
     const elapsed = calculateTimeElapsed(CONFIG.startDate);
     const perSecond = getAcceleratedTonnesPerSecond(elapsed.totalSeconds);
     return [
-      { label: 'PER SECOND', value: formatNumber(perSecond, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
-      { label: 'PER MINUTE', value: formatNumber(perSecond * 60, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
-      { label: 'PER DAY', value: formatNumber(perSecond * 86400, 0), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow, trend },
+      { label: 'Per Second', value: formatNumber(perSecond, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
+      { label: 'Per Minute', value: formatNumber(perSecond * 60, 2), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow },
+      { label: 'Per Day', value: formatNumber(perSecond * 86400, 0), unit: 'tonnes CO₂e', color: '#00D2FC', glow: blueGlow, trend },
     ];
   }
 
@@ -451,25 +451,25 @@ function buildCards(activeView, depletionDate, depletionDate15, yearsRemaining, 
     const tonnesUntilNextPct = budgetRemaining - (nextPct / 100) * initialBudget;
     const buffer = { tonnes: Math.max(tonnesUntilNextPct, 0), nextPct };
     return [
-      { label: 'EST. DEPLETION DATE', value: dateStr, unit: '2.0°C budget exhausted', color, glow },
-      { label: 'PER DAY', value: formatNumber(Math.round(currentTonnesPerSecond * 86400), 0), unit: 'tonnes CO₂e', color, glow, trend },
-      { label: 'STOCKPILE REMAINING', value: `${remaining.toFixed(1)}%`, unit: `of ${formatNumber(initialBudget, 0)} tonnes CO₂e`, color, glow, buffer },
+      { label: 'Est. Depletion Date', value: dateStr, unit: '2.0°C budget exhausted', color, glow },
+      { label: 'Per Day', value: formatNumber(Math.round(currentTonnesPerSecond * 86400), 0), unit: 'tonnes CO₂e', color, glow, trend },
+      { label: 'Stockpile Remaining', value: `${remaining.toFixed(1)}%`, unit: `of ${formatNumber(initialBudget, 0)} tonnes CO₂e`, color, glow, buffer },
     ];
   }
 
   if (activeView === VIEWS.BUDGET_15C_OVERSHOOT) {
     return [
-      { label: 'BREACH CONFIRMED', value: 'JAN 2024', unit: 'WMO confirmed +1.55°C annual mean', color: '#B91C1C', glow: redGlow },
-      { label: 'CURRENT ANOMALY', value: `+${currentAnomaly.toFixed(2)}°C`, unit: 'above pre-industrial', color: '#B91C1C', glow: redGlow },
-      { label: 'STOCKPILE REMAINING', value: '0.0%', unit: 'EXHAUSTED', color: '#B91C1C', glow: redGlow },
+      { label: 'Breach Confirmed', value: 'JAN 2024', unit: 'WMO confirmed +1.55°C annual mean', color: '#B91C1C', glow: redGlow },
+      { label: 'Current Anomaly', value: `+${currentAnomaly.toFixed(2)}°C`, unit: 'above pre-industrial', color: '#B91C1C', glow: redGlow },
+      { label: 'Stockpile Remaining', value: '0.0%', unit: 'EXHAUSTED', color: '#B91C1C', glow: redGlow },
     ];
   }
 
   // Forest loss
   return [
-    { label: 'PER HOUR', value: formatNumber(Math.round(KM2_PER_SECOND * 3600)), unit: 'square kilometers', color: '#FF4D00', glow: fireGlow },
-    { label: 'CARBON RELEASED', value: formatNumber(Math.round(carbonReleased), 0), unit: 'tonnes CO₂e', color: '#FF4D00', glow: fireGlow },
-    { label: 'AVERAGE', value: AVG_CO2_PER_KM2, unit: 'tonnes CO₂e / km²', color: '#FF4D00', glow: fireGlow },
+    { label: 'Per Hour', value: formatNumber(Math.round(KM2_PER_SECOND * 3600)), unit: 'square kilometers', color: '#FF4D00', glow: fireGlow },
+    { label: 'Carbon Released', value: formatNumber(Math.round(carbonReleased), 0), unit: 'tonnes CO₂e', color: '#FF4D00', glow: fireGlow },
+    { label: 'Average', value: AVG_CO2_PER_KM2, unit: 'tonnes CO₂e / km²', color: '#FF4D00', glow: fireGlow },
   ];
 }
 

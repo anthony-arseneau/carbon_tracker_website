@@ -18,7 +18,7 @@ export default function Footer() {
           {/* Column 1: Project Info */}
           <div>
             <h3 className="text-[10px] tracking-[0.28em] text-muted-text uppercase font-mono mb-5">
-              PROJECT INFO
+              Project Info
             </h3>
             <ul className="space-y-3">
               <li>
@@ -43,7 +43,7 @@ export default function Footer() {
           {/* Column 2: Legal */}
           <div>
             <h3 className="text-[10px] tracking-[0.28em] text-muted-text uppercase font-mono mb-5">
-              LEGAL
+              Legal
             </h3>
             <ul className="space-y-3">
               <li>
@@ -68,7 +68,7 @@ export default function Footer() {
           {/* Column 3: Data Partners */}
           <div>
             <h3 className="text-[10px] tracking-[0.28em] text-muted-text uppercase font-mono mb-5">
-              DATA CALIBRATION &amp; SOURCES
+              Data Calibration &amp; Sources
             </h3>
             <div className="flex flex-row flex-wrap justify-center md:justify-start gap-3">
               {DATA_PARTNERS.map((p) => (
@@ -88,10 +88,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-dark-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-[10px] text-muted-text font-mono tracking-[0.2em]">
-          <span>EMISSIONS BUDGET &middot; BUILT FOR ENVIRONMENTAL TRANSPARENCY &middot; TRACKING SINCE JAN 2026</span>
+          <span>Emissions Budget &middot; Built for Environmental Transparency &middot; Tracking Since Jan 2026</span>
           <span className="flex items-center gap-2">
             <span className="animate-pulse bg-neon-green rounded-full h-1.5 w-1.5 shrink-0" />
-            DATA UPDATED IN REAL-TIME
+            Data Updated in Real-Time
           </span>
         </div>
 
