@@ -1,6 +1,6 @@
+import { Wind } from 'lucide-react';
 import { CONFIG } from '../config';
 import { formatNumber } from '../utils';
-import { Wind } from 'lucide-react'
 
 // Icon components
 const SunIcon = () => (

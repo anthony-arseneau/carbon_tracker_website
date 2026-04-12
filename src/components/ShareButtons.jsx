@@ -1,7 +1,7 @@
 
 
-import { useState, useRef } from 'react';
-import { Copy, CircleCheck } from 'lucide-react';
+import { CircleCheck, Copy } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { CONFIG, getAcceleratedTotalEmissions, getYearsUntilBudgetDepleted, INITIAL_BUDGET_20C } from '../config';
 import { calculateTimeElapsed } from '../utils';
 

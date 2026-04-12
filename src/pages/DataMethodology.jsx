@@ -1,5 +1,5 @@
 import NavBar from '../components/NavBar';
-import Sources from '../components/Sources.jsx'
+import Sources from '../components/Sources.jsx';
 
 const SOURCES = [
   {
