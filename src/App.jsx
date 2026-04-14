@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
 import ActionButtons from './components/ActionButtons';
-import EmissionEquivalents from './components/EmissionEquivalents';
+import CO2SphereVisualization3D from './components/CO2SphereVisualization3D';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import HumanImpact from './components/HumanImpact';
 import MainCounter, { VIEWS } from './components/MainCounterV2';
 import NavBar from './components/NavBar';
 import ShareButtons from './components/ShareButtons';
-import CO2SphereVisualization from './components/CO2SphereVisualization'
-import Sources from './components/Sources';
+import TrajectorySection from './components/TrajectorySection';
 import VerticalDepletionGauge from './components/VerticalDepletionGauge';
 import { CONFIG, INITIAL_BUDGET_20C, getAcceleratedTotalEmissions } from './config';
-import TrajectorySection from './components/TrajectorySection';
 
 export default function App() {
   const [budget20Remaining, setBudget20Remaining] = useState(INITIAL_BUDGET_20C);
@@ -60,7 +58,8 @@ export default function App() {
         <ShareButtons />
 
         {/* Scale Section */}
-        <CO2SphereVisualization />
+        {/* <CO2SphereVisualization /> */}
+        <CO2SphereVisualization3D />
 
         {/* Consequences Section */}
         <TrajectorySection />

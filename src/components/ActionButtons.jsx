@@ -33,7 +33,7 @@ export default function ActionButtons() {
   const actions = [
     {
       icon: <MegaphoneIcon />,
-      title: 'BE PART OF THE CHANGE',
+      title: 'Be Part of the Change',
       description: 'Demand world leaders establish enforceable carbon caps for fossil fuel majors',
       borderColor: 'border-neon-red',
       hoverBg: 'hover:bg-neon-red/10',
@@ -43,7 +43,7 @@ export default function ActionButtons() {
     },
     {
       icon: <PhoneIcon />,
-      title: 'CONTACT YOUR REPRESENTATIVE',
+      title: 'Contact Your Representative',
       description: 'Demand they support carbon tax legislation and renewable energy investment',
       borderColor: 'border-neon-cyan',
       hoverBg: 'hover:bg-neon-cyan/10',
@@ -76,7 +76,7 @@ export default function ActionButtons() {
   return (
     <section className="mb-12">
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        SUPPORT ENVIRONMENTAL ACTION
+        Support Environmental Action
       </h2>
       
       <div className="space-y-4">

@@ -16,9 +16,9 @@ const TrajectorySection = () => {
   // Themed to match MainCounter exactly (Colors, Glows, Typography)
   const consequenceCards = [
     {
-      title: "IF COUNTRIES DO NOT ACT",
+      title: "If Countries Do Not Act",
       range: "4.1 - 4.8°C",
-      unit: "WARMING EXPECTED",
+      unit: "Warming Expected",
       color: "#B91C1C", // MainCounter Critical Red
       glow: "0 0 20px rgba(185, 28, 28, 0.5), 0 0 40px rgba(185, 28, 28, 0.3)",
       consequences: [
@@ -29,9 +29,9 @@ const TrajectorySection = () => {
       ]
     },
     {
-      title: "CURRENT POLICIES (ENACTED)",
+      title: "Current Policies (Enacted)",
       range: "2.8 - 3.2°C",
-      unit: "WARMING EXPECTED",
+      unit: "Warming Expected",
       color: "#FF9F43", // MainCounter Budget Orange
       glow: "0 0 20px rgba(255, 159, 67, 0.5), 0 0 40px rgba(255, 159, 67, 0.3)",
       consequences: [
@@ -42,9 +42,9 @@ const TrajectorySection = () => {
       ]
     },
     {
-      title: "CURRENT PLEDGES (NOT ENACTED)",
+      title: "Current Pledges (Not Enacted)",
       range: "2.5 - 2.8°C",
-      unit: "WARMING EXPECTED",
+      unit: "Warming Expected",
       color: "#00D2FC", // MainCounter Spend Blue
       glow: "0 0 20px rgba(0, 210, 252, 0.5), 0 0 40px rgba(0, 210, 252, 0.3)",
       consequences: [
@@ -107,7 +107,7 @@ const TrajectorySection = () => {
         .style('font-family', 'monospace')
         .style('font-size', '12px')
         .style('letter-spacing', '0.05em')
-        .text('GtCO₂e (GIGATONNES CO₂ EQUIVALENT)');
+        .text('GtCO₂e (Gigatonnes CO₂ Equivalent)');
 
       // 3. Area Generators
       const areaNoAct = d3.area().x(d => x(d.year)).y0(d => y(d.noActMin)).y1(d => y(d.noActMax)).curve(d3.curveMonotoneX);
@@ -134,18 +134,18 @@ const TrajectorySection = () => {
 
       const redLabel = svg.append('text').attr('x', labelX).attr('y', y((lastData.noActMin + lastData.noActMax) / 2) - 15).attr('fill', '#B91C1C').attr('font-size', '11px').attr('font-family', 'monospace');
       redLabel.append('tspan').attr('x', labelX).attr('dy', 0).style('font-weight', 'bold').attr('font-size', '13px').text('4.1 - 4.8°C');
-      redLabel.append('tspan').attr('x', labelX).attr('dy', '1.3em').text("IF COUNTRIES");
-      redLabel.append('tspan').attr('x', labelX).attr('dy', '1.4em').text("DO NOT ACT");
+      redLabel.append('tspan').attr('x', labelX).attr('dy', '1.3em').text("If Countries");
+      redLabel.append('tspan').attr('x', labelX).attr('dy', '1.4em').text("Do Not Act");
 
       const greenLabel = svg.append('text').attr('x', labelX).attr('y', y((lastData.policiesMin + lastData.policiesMax) / 2) - 10).attr('fill', '#FF9F43').attr('font-size', '11px').attr('font-family', 'monospace');
       greenLabel.append('tspan').attr('x', labelX).attr('dy', 0).style('font-weight', 'bold').attr('font-size', '13px').text('2.8 - 3.2°C');
-      greenLabel.append('tspan').attr('x', labelX).attr('dy', '1.3em').text("CURRENT POLICIES");
-      greenLabel.append('tspan').attr('x', labelX).attr('dy', '1.4em').text("(ENACTED)");
+      greenLabel.append('tspan').attr('x', labelX).attr('dy', '1.3em').text("Current Policies");
+      greenLabel.append('tspan').attr('x', labelX).attr('dy', '1.4em').text("(Enacted)");
 
       const blueLabel = svg.append('text').attr('x', labelX).attr('y', y((lastData.pledgesMin + lastData.pledgesMax) / 2) + 5).attr('fill', '#00D2FC').attr('font-size', '11px').attr('font-family', 'monospace');
       blueLabel.append('tspan').attr('x', labelX).attr('dy', 0).style('font-weight', 'bold').attr('font-size', '13px').text('2.5 - 2.8°C');
-      blueLabel.append('tspan').attr('x', labelX).attr('dy', '1.3em').text("CURRENT PLEDGES");
-      blueLabel.append('tspan').attr('x', labelX).attr('dy', '1.4em').text("(NOT ENACTED)");
+      blueLabel.append('tspan').attr('x', labelX).attr('dy', '1.3em').text("Current Pledges");
+      blueLabel.append('tspan').attr('x', labelX).attr('dy', '1.4em').text("(Not Enacted)");
 
       // 7. Timeline Markers & Breaches (on the Amber Path)
       const currentYearX = 2026;
@@ -153,15 +153,8 @@ const TrajectorySection = () => {
       
       const currentMarker = svg.append('g').attr('transform', `translate(${x(currentYearX)},${y(currentYearY)})`);
       currentMarker.append('circle')
-        .attr('r', 5)
-        .attr('fill', '#f8fafc')
-        .attr('class', 'animate-pulse'); 
-      currentMarker.append('circle')
-        .attr('r', 8)
-        .attr('fill', 'none')
-        .attr('stroke', '#f8fafc')
-        .attr('stroke-width', 1)
-        .attr('class', 'animate-ping opacity-50'); 
+        .attr('r', 4)
+        .attr('fill', '#f8fafc'); 
       currentMarker.append('text')
         .attr('x', 0)
         .attr('y', -15)
@@ -170,7 +163,7 @@ const TrajectorySection = () => {
         .attr('font-size', '11px')
         .attr('font-family', 'monospace')
         .attr('font-weight', 'bold')
-        .text('WE ARE HERE');
+        .text('We Are Here');
 
       const breach2050X = 2050.6;
       const breach2050Y = 53.5;
@@ -208,10 +201,10 @@ const TrajectorySection = () => {
     <div className="border border-dark-border rounded-xl bg-dark-card overflow-hidden">
       {/* Section header */}
       <div className="px-8 pt-8 pb-4">
-        <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-1">
+        <p className="text-[10px] tracking-[0.3em] text-muted-text font-mono mb-1">
           Projection Models
         </p>
-        <h2 className="text-sm md:text-base font-bold tracking-widest font-mono text-slate-200 uppercase">
+        <h2 className="text-sm md:text-base font-bold tracking-widest font-mono text-slate-200">
           Future Emissions & Warming Trajectories
         </h2>
         <p className="text-[11px] text-muted-text font-mono tracking-wide mt-2 max-w-4xl leading-relaxed">

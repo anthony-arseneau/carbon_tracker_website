@@ -9,7 +9,7 @@ export default function Privacy() {
 
       <main className="max-w-[900px] mx-auto px-4 py-8 relative z-10">
         <div className="border border-dark-border rounded-xl bg-dark-card p-7 glow-orange">
-          <p className="text-xs tracking-[0.26em] text-muted-text mb-4 uppercase">Privacy Policy</p>
+          <p className="text-xs tracking-[0.26em] text-muted-text mb-4">Privacy Policy</p>
           <h1 className="text-2xl md:text-3xl font-bold mb-3 tracking-wide">How Your Data Is Handled</h1>
 
           <h2 className="text-base font-semibold mt-5 mb-2 tracking-wide">Data Collection</h2>

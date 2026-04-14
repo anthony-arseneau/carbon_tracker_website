@@ -13,33 +13,33 @@ const AVG_CO2_PER_HECTARE = 170; // tonnes
 // Impact card data
 const IMPACT_CARDS = [
   {
-    title: 'BOREAL FOREST',
+    title: 'Boreal Forest',
     region: 'Canada / Siberia',
     icon: '🌲',
     biomassDensity: 'High (Carbon Sink)',
     co2PerHectare: 170,
     healthImpact: 'CRITICAL',
-    healthLabel: 'SMOKE / AQI',
+    healthLabel: 'Smoke / AQI',
     bgGradient: 'from-emerald-900/20 to-transparent',
   },
   {
-    title: 'TROPICAL RAINFOREST',
+    title: 'Tropical Rainforest',
     region: 'Amazon Basin',
     icon: '🌳',
     biomassDensity: 'Extreme (Biodiversity)',
     co2PerHectare: 250,
     healthImpact: 'CATASTROPHIC',
-    healthLabel: 'ECOSYSTEM COLLAPSE',
+    healthLabel: 'Ecosystem Collapse',
     bgGradient: 'from-green-900/20 to-transparent',
   },
   {
-    title: 'URBAN-WILDLAND',
+    title: 'Urban-Wildland',
     region: 'Interface Zones',
     icon: '🏠',
     biomassDensity: 'Variable (Human Life)',
     co2PerHectare: 90,
     healthImpact: 'IMMEDIATE THREAT',
-    healthLabel: 'EVACUATION RISK',
+    healthLabel: 'Evacuation Risk',
     bgGradient: 'from-orange-900/20 to-transparent',
   },
 ];
@@ -155,9 +155,9 @@ export default function BiosphereDegradation() {
     <section className="mb-12">
       {/* Section Header */}
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        <span style={{ color: '#FF4D00' }}>BIOSPHERE DEGRADATION</span>
+        <span style={{ color: '#FF4D00' }}>Biosphere Degradation</span>
         <span className="mx-2">·</span>
-        <span>WILDFIRE ANALYSIS</span>
+        <span>Wildfire Analysis</span>
       </h2>
 
       {/* Main Ticker Section */}
@@ -196,7 +196,7 @@ export default function BiosphereDegradation() {
         {/* Content */}
         <div className="text-center relative z-10">
           <p className="text-xs tracking-[0.3em] text-muted-text mb-4">
-            EST. GLOBAL WILDFIRE LOSS SINCE JAN 1, 2026
+            Est. Global Wildfire Loss Since Jan 1, 2026
           </p>
 
           {/* Main Hectares Counter */}
@@ -206,11 +206,11 @@ export default function BiosphereDegradation() {
           >
             {formatNumber(Math.floor(hectaresBurned))}
           </div>
-          <p className="text-sm text-muted-text tracking-[0.2em] mb-4">HECTARES BURNED YTD</p>
+          <p className="text-sm text-muted-text tracking-[0.2em] mb-4">Hectares Burned YTD</p>
 
           {/* Carbon Release Sub-Label */}
           <div className="inline-flex items-center gap-2 bg-dark-card/80 border border-dark-border rounded-lg px-4 py-2 backdrop-blur-sm">
-            <span className="text-xs tracking-[0.15em] text-muted-text">EST. CARBON RELEASED:</span>
+            <span className="text-xs tracking-[0.15em] text-muted-text">Est. Carbon Released:</span>
             <span 
               className="text-lg font-bold tabular-nums"
               style={{ color: isCriticalCarbon ? '#B91C1C' : '#FF4D00' }}
@@ -246,15 +246,15 @@ export default function BiosphereDegradation() {
             {/* Stats */}
             <div className="space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-muted-text">BIOMASS DENSITY:</span>
+                <span className="text-muted-text">Biomass Density:</span>
                 <span className="text-white font-mono">{card.biomassDensity}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-text">AVG. CO₂ / HECTARE:</span>
-                <span className="text-white font-mono tabular-nums">{card.co2PerHectare} TONNES</span>
+                <span className="text-muted-text">Avg. CO₂ / Hectare:</span>
+                <span className="text-white font-mono tabular-nums">{card.co2PerHectare} tonnes</span>
               </div>
               <div className="flex justify-between pt-2 border-t border-dark-border">
-                <span className="text-muted-text">HEALTH IMPACT:</span>
+                <span className="text-muted-text">Health Impact:</span>
                 <span 
                   className="font-bold"
                   style={{ color: card.healthImpact === 'CATASTROPHIC' ? '#B91C1C' : '#FF4D00' }}
@@ -285,7 +285,7 @@ export default function BiosphereDegradation() {
           }}
         >
           <span>🌱</span>
-          <span>SUPPORT REFORESTATION INITIATIVES</span>
+          <span>Support Reforestation Initiatives</span>
         </a>
       </div>
     </section>

@@ -8,9 +8,9 @@ const DollarIcon = () => (
 
 export default function EconomicCost() {
   const costs = [
-    { label: 'GLOBAL GDP LOSS', value: '$2.8T', subtitle: 'annually by 2030' },
-    { label: 'EXTREME WEATHER COST', value: '$313B', subtitle: 'in 2025 alone' },
-    { label: 'SOCIAL COST OF CARBON', value: '$185', subtitle: 'per tonne CO₂' },
+    { label: 'Global GDP Loss', value: '$2.8T', subtitle: 'annually by 2030' },
+    { label: 'Extreme Weather Cost', value: '$313B', subtitle: 'in 2025 alone' },
+    { label: 'Social Cost of Carbon', value: '$185', subtitle: 'per tonne CO₂' },
   ];
 
   const socialCost = 185;
@@ -19,13 +19,13 @@ export default function EconomicCost() {
   return (
     <section className="mb-12">
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        ECONOMIC COST OF INACTION
+        Economic Cost of Inaction
       </h2>
       
       <div className="border border-dark-border rounded-lg bg-dark-card p-6">
         <div className="flex items-center gap-2 text-neon-red mb-6">
           <DollarIcon />
-          <span className="text-sm tracking-[0.2em] font-semibold">ANNUAL CLIMATE DAMAGES</span>
+          <span className="text-sm tracking-[0.2em] font-semibold">Annual Climate Damages</span>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">

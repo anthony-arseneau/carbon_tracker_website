@@ -329,9 +329,9 @@ export default function CO2SphereVisualization() {
   return (
     <div className="mb-12 border border-dark-border rounded-xl bg-dark-card overflow-hidden">
       <div className="px-8 pt-8 pb-4">
-        <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-1">SCALE VISUALIZATION</p>
+        <p className="text-[10px] tracking-[0.3em] text-muted-text font-mono mb-1">Scale Visualization</p>
         <h2 className="text-sm md:text-base font-bold tracking-widest font-mono text-slate-200">
-          PHYSICAL VOLUME FOR 1 METRIC TONNE OF CO₂e
+          Physical Volume for 1 Metric Tonne of CO₂e
         </h2>
         <p className="text-[11px] text-muted-text font-mono tracking-wide mt-2 leading-relaxed">
           Because potent greenhouse gases trap more heat, a tiny physical amount of Methane (CH₄) or F-Gases (SF₆) exerts the exact same 1-tonne warming impact as a massive sphere of pure CO₂.
@@ -438,7 +438,7 @@ export default function CO2SphereVisualization() {
             </text>
           </g>
           <text x={w / 2} y={h - 15} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="11" fontFamily="'JetBrains Mono', monospace" letterSpacing="0.15em">
-            EACH SPHERE = 1 TONNE OF WARMING IMPACT
+            Each Sphere = 1 tonne of warming impact
           </text>
         </svg>
       </div>

@@ -6,7 +6,7 @@ function generateEmissionData(countryCode, countryName) {
   // Return N/A data for Antarctica
   if (countryCode === 'AQ' || countryName === 'Antarctica') {
     return {
-      name: 'ANTARCTICA',
+      name: 'Antarctica',
       isAntarctica: true,
     };
   }
@@ -42,7 +42,7 @@ function generateEmissionData(countryCode, countryName) {
   if (majorEmitters[countryCode]) {
     const data = majorEmitters[countryCode];
     return {
-      name: countryName.toUpperCase(),
+      name: countryName,
       emissions: data.emissions,
       perCapita: data.perCapita,
       globalPercent: data.globalPercent,
@@ -58,7 +58,7 @@ function generateEmissionData(countryCode, countryName) {
   const aqi = Math.floor(20 + pseudoRandom(3) * 180);
   
   return {
-    name: countryName.toUpperCase(),
+    name: countryName,
     emissions,
     perCapita,
     globalPercent,
@@ -135,7 +135,7 @@ function arcToPath(coordinates, transform) {
 function MapLegend() {
   return (
     <div className="absolute bottom-4 left-4 bg-dark-slate/90 border border-dark-border rounded-lg p-3 backdrop-blur-sm">
-      <p className="text-[10px] tracking-[0.2em] text-muted-text mb-2">EMISSIONS SCALE</p>
+      <p className="text-[10px] tracking-[0.2em] text-muted-text mb-2">Emissions Scale</p>
       <div className="flex items-center gap-2">
         <div 
           className="w-32 h-3 rounded-sm"
@@ -172,23 +172,23 @@ function MapTooltip({ data, position }) {
           </p>
           <div className="space-y-1 font-mono text-[10px]">
             <div className="flex justify-between">
-              <span className="text-muted-text">ANNUAL EMISSIONS:</span>
+              <span className="text-muted-text">Annual Emissions:</span>
               <span className="text-muted-text">N/A</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-text">GLOBAL SHARE:</span>
+              <span className="text-muted-text">Global Share:</span>
               <span className="text-muted-text">N/A</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-text">PER CAPITA:</span>
+              <span className="text-muted-text">Per Capita:</span>
               <span className="text-muted-text">N/A</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-text">EST. AQI:</span>
+              <span className="text-muted-text">Est. AQI:</span>
               <span className="text-muted-text">N/A</span>
             </div>
             <div className="flex justify-between pt-1 border-t border-dark-border mt-1">
-              <span className="text-muted-text">BUDGET STATUS:</span>
+              <span className="text-muted-text">Budget Status:</span>
               <span className="text-muted-text">N/A</span>
             </div>
           </div>
@@ -216,23 +216,23 @@ function MapTooltip({ data, position }) {
         </p>
         <div className="space-y-1 font-mono text-[10px]">
           <div className="flex justify-between">
-            <span className="text-muted-text">ANNUAL EMISSIONS:</span>
+            <span className="text-muted-text">Annual Emissions:</span>
             <span className="text-white tabular-nums">{data.emissions.toLocaleString()} Mt</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted-text">GLOBAL SHARE:</span>
+            <span className="text-muted-text">Global Share:</span>
             <span className="text-white tabular-nums">{data.globalPercent.toFixed(1)}%</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted-text">PER CAPITA:</span>
-            <span className="text-white tabular-nums">{data.perCapita.toFixed(2)} TONNES</span>
+            <span className="text-muted-text">Per Capita:</span>
+            <span className="text-white tabular-nums">{data.perCapita.toFixed(2)} tonnes</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-muted-text">EST. AQI (CAPITAL):</span>
+            <span className="text-muted-text">Est. AQI (Capital):</span>
             <span className="tabular-nums font-semibold" style={{ color: aqiColor }}>{data.aqi}</span>
           </div>
           <div className="flex justify-between pt-1 border-t border-dark-border mt-1">
-            <span className="text-muted-text">BUDGET STATUS:</span>
+            <span className="text-muted-text">Budget Status:</span>
             <span className="font-bold" style={{ color: statusColor }}>{data.status}</span>
           </div>
         </div>
@@ -323,7 +323,7 @@ export default function GlobalEmissionMap() {
   return (
     <section className="mb-12 relative">
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        GLOBAL EMISSION DISTRIBUTION
+        Global Emission Distribution
       </h2>
 
       <div className="border border-dark-border rounded-lg bg-dark-card overflow-hidden relative">
@@ -413,7 +413,7 @@ export default function GlobalEmissionMap() {
 
           {/* Stats overlay */}
           <div className="absolute top-4 right-4 bg-dark-slate/90 border border-dark-border rounded-lg p-3 backdrop-blur-sm">
-            <p className="text-[9px] tracking-[0.2em] text-muted-text mb-1">TOTAL TRACKED</p>
+            <p className="text-[9px] tracking-[0.2em] text-muted-text mb-1">Total Tracked</p>
             <p className="text-lg font-bold text-neon-green tabular-nums">
               {totalEmissions.toLocaleString()} Mt
             </p>
@@ -427,17 +427,17 @@ export default function GlobalEmissionMap() {
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-neon-red animate-pulse" />
               <span className="text-[10px] text-muted-text tracking-wider">
-                {criticalCount} NATIONS CRITICAL
+                {criticalCount} Nations Critical
               </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-neon-green" />
               <span className="text-[10px] text-muted-text tracking-wider">
-                {onTrackCount} ON TRACK
+                {onTrackCount} On Track
               </span>
             </div>
           </div>
-          <p className="text-[9px] text-muted-text">HOVER OVER COUNTRY FOR DETAILS</p>
+          <p className="text-[9px] text-muted-text">Hover Over Country for Details</p>
         </div>
       </div>
 

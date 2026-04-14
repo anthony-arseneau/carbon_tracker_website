@@ -29,10 +29,10 @@ const NavLink = ({ item, onClick }) => {
 };
 
 const NAV_ITEMS = [
-  { label: 'LIVE DASHBOARD', to: '/', live: true },
-  { label: 'SYSTEM DIAGNOSTICS', to: '/diagnostics' },
-  { label: 'PROJECTION MODELS', to: '/projections' },
-  { label: 'DATA & METHODOLOGY', to: '/methodology' },
+  { label: 'Live Dashboard', to: '/', live: true },
+  // { label: 'System Diagnostics', to: '/diagnostics' },
+  // { label: 'Projection Models', to: '/projections' },
+  { label: 'Sources', to: '/methodology' },
 ];
 
 export default function NavBar() {
@@ -48,7 +48,7 @@ export default function NavBar() {
             to="/"
             className="text-muted-text font-bold tracking-widest uppercase text-sm font-mono hover:text-neon-cyan transition-colors duration-200"
           >
-            EMISSIONS BUDGET
+            Emissions Budget
           </Link>
 
           {/* Right: Desktop nav links */}
@@ -77,7 +77,7 @@ export default function NavBar() {
           {/* Overlay header */}
           <div className="flex items-center justify-between px-6 h-14 border-b border-dark-border shrink-0">
             <span className="text-white font-bold tracking-widest uppercase text-sm font-mono">
-              EMISSIONS BUDGET
+              Emissions Budget
             </span>
             <button
               className="text-slate-300 hover:text-white transition-colors text-lg font-mono p-2"
@@ -99,7 +99,7 @@ export default function NavBar() {
 
           {/* Overlay footer note */}
           <p className="text-center text-xs text-muted-text font-mono tracking-widest pb-8">
-            REAL-TIME CLIMATE SIGNAL MONITORING
+            Real-Time Climate Signal Monitoring
           </p>
         </div>
       )}

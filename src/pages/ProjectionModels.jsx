@@ -101,7 +101,7 @@ export default function ProjectionModels() {
           <span className="text-neon-cyan text-lg font-mono shrink-0">◈</span>
           <div>
             <p className="text-neon-cyan text-[10px] tracking-[0.3em] font-mono uppercase mb-1">
-              INTERACTIVE MODELLING — COMING SOON
+              Interactive Modelling — Coming Soon
             </p>
             <p className="text-muted-text text-xs font-mono leading-relaxed">
               Interactive trajectory charts, scenario comparison tools, and custom variable controls

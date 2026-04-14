@@ -14,7 +14,7 @@ export default function Header() {
       </p> */}
       
       <div className="inline-block text-muted-text px-6 py-2 rounded-full border border-dark-border bg-dark-card/50 text-xs tracking-[0.15em]">
-        BASED ON THE{' '}
+        Based on the{' '}
         <a
           href="#sources"
           className="text-muted-text hover:underline"
@@ -23,13 +23,13 @@ export default function Header() {
             document.getElementById('sources')?.scrollIntoView({ behavior: 'smooth' });
           }}
         >
-          WORLD METEOROLOGICAL ORGANIZATION
+          World Meteorological Organization
         </a>{' '}
-        OF{' '}
+        of{' '}
         <span className="text-muted-text font-semibold">
           {formatLargeNumber(CONFIG.annualTonnes).replace(/\.\d+/, '').toUpperCase()}
         </span>{' '}
-        TONNES PER YEAR
+        tonnes per year
       </div>
     </header>
   );

@@ -30,28 +30,28 @@ export default function AbsorptionAlternatives() {
   const alternatives = [
     {
       icon: <TreeIcon />,
-      label: 'REFORESTATION',
+      label: 'Reforestation',
       value: '1.8B',
       subtitle: 'trees needed annually',
       note: 'to offset 40 Gt/yr',
     },
     {
       icon: <AirFlowIcon />,
-      label: 'DIRECT AIR CAPTURE',
+      label: 'Direct Air Capture',
       value: '40,000',
       subtitle: 'DAC facilities needed',
       note: 'at 1 MtCO₂/yr each',
     },
     {
       icon: <GlobeIcon />,
-      label: 'SOIL SEQUESTRATION',
+      label: 'Soil Sequestration',
       value: '10 Gt',
       subtitle: 'potential via regen ag',
       note: '25% of annual emissions',
     },
     {
       icon: <WaveIcon />,
-      label: 'OCEAN ABSORPTION',
+      label: 'Ocean Absorption',
       value: '~10 Gt',
       subtitle: 'absorbed annually',
       note: 'natural ocean sink',
@@ -61,7 +61,7 @@ export default function AbsorptionAlternatives() {
   return (
     <section className="mb-12">
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        WHAT COULD THIS ABSORPTION CAPACITY BUY?
+        What Could This Absorption Capacity Buy?
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

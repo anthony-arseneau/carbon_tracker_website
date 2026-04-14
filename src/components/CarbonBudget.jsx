@@ -50,13 +50,13 @@ export default function CarbonBudget() {
   return (
     <section className="mb-12">
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        REMAINING GLOBAL CARBON BUDGET
+        Remaining Global Carbon Budget
       </h2>
       
       <div className="border border-dark-border rounded-lg bg-dark-card p-6 glow-orange">
         <div className="flex items-center gap-2 text-neon-orange mb-6">
           <ClockIcon />
-          <span className="text-sm tracking-[0.2em] font-semibold">CARBON BUDGET STATUS</span>
+          <span className="text-sm tracking-[0.2em] font-semibold">Carbon Budget Status</span>
         </div>
         
         {/* 1.5°C Budget Bar */}
@@ -98,20 +98,20 @@ export default function CarbonBudget() {
         {/* Depletion Timeline */}
         <div className="border-t border-dark-border pt-6">
           <p className="text-xs tracking-[0.2em] text-muted-text mb-3">
-            TIME REMAINING AT CURRENT EMISSION RATE
+            Time Remaining at Current Emission Rate
           </p>
           
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="text-center p-4 bg-dark-slate rounded-lg">
-              <p className="text-xs text-muted-text mb-1">TO 1.5°C LIMIT</p>
+              <p className="text-xs text-muted-text mb-1">To 1.5°C Limit</p>
               <p className="text-2xl font-bold text-neon-red text-glow-red">
-                ~{budgetData.yearsTo15.toFixed(1)} YEARS
+                ~{budgetData.yearsTo15.toFixed(1)} Years
               </p>
             </div>
             <div className="text-center p-4 bg-dark-slate rounded-lg">
-              <p className="text-xs text-muted-text mb-1">TO 2.0°C LIMIT</p>
+              <p className="text-xs text-muted-text mb-1">To 2.0°C Limit</p>
               <p className="text-2xl font-bold text-neon-orange text-glow-orange">
-                ~{budgetData.yearsTo20.toFixed(1)} YEARS
+                ~{budgetData.yearsTo20.toFixed(1)} Years
               </p>
             </div>
           </div>

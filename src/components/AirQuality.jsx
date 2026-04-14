@@ -135,7 +135,7 @@ function AQIScale({ currentAqi = 58 }) {
 
   return (
     <div className="mb-8">
-      <p className="text-xs tracking-[0.2em] text-muted-text mb-3 text-center">AQI THREAT SPECTRUM</p>
+      <p className="text-xs tracking-[0.2em] text-muted-text mb-3 text-center">AQI Threat Spectrum</p>
       
       {/* Scale bar */}
       <div className="relative pt-2 pb-8">
@@ -189,7 +189,7 @@ export default function AirQuality() {
   const urbanTiers = [
     {
       icon: (color) => <RegionalIcon color={color} />,
-      tier: 'REGIONAL URBAN CENTER',
+      tier: 'Regional Urban Center',
       population: 500000,
       avgAqi: 45,
       deaths: calculateEstimatedDeaths(500000, 45),
@@ -197,7 +197,7 @@ export default function AirQuality() {
     },
     {
       icon: (color) => <IndustrialIcon color={color} />,
-      tier: 'INDUSTRIAL CORRIDOR',
+      tier: 'Industrial Corridor',
       population: 2500000,
       avgAqi: 120,
       deaths: calculateEstimatedDeaths(2500000, 120),
@@ -205,7 +205,7 @@ export default function AirQuality() {
     },
     {
       icon: (color) => <MetropolisIcon color={color} />,
-      tier: 'TIER 1 METROPOLIS',
+      tier: 'Tier 1 Metropolis',
       population: 10000000,
       avgAqi: 180,
       deaths: calculateEstimatedDeaths(10000000, 180),
@@ -216,7 +216,7 @@ export default function AirQuality() {
   return (
     <section className="mb-12 relative">
       <h2 className="text-center text-xs tracking-[0.4em] text-muted-text mb-6">
-        ATMOSPHERIC INTEGRITY & PUBLIC HEALTH
+        Atmospheric Integrity & Public Health
       </h2>
       
       {/* Mortality Correlation Tickers */}
@@ -228,17 +228,17 @@ export default function AirQuality() {
           {[...Array(3)].map((_, repeat) => (
             <div key={repeat} className="flex gap-8">
               <span className="text-neon-violet">
-                <span className="text-muted-text">LIVE CORRELATION: POPULATION DENSITY ↔ PM2.5 CONCENTRATION:</span>{' '}
-                <span className="font-bold">+0.84 (STRONG POSITIVE)</span>
+                <span className="text-muted-text">Live Correlation: Population Density ↔ PM2.5 Concentration:</span>{' '}
+                <span className="font-bold">+0.84 (Strong Positive)</span>
               </span>
               <span className="text-muted-text">●</span>
               <span className="text-neon-violet">
-                <span className="text-muted-text">GLOBAL AVG AQI:</span>{' '}
-                <span className="font-bold">58 (MODERATE)</span>
+                <span className="text-muted-text">Global Avg AQI:</span>{' '}
+                <span className="font-bold">58 (Moderate)</span>
               </span>
               <span className="text-muted-text">●</span>
               <span className="text-neon-violet">
-                <span className="text-muted-text">TOTAL SETTLEMENTS MONITORED:</span>{' '}
+                <span className="text-muted-text">Total Settlements Monitored:</span>{' '}
                 <span className="font-bold">12,400+</span>
               </span>
               <span className="text-muted-text">●</span>
@@ -255,7 +255,7 @@ export default function AirQuality() {
         <div className="relative z-10">
           <div className="flex items-center gap-2 text-neon-violet mb-6">
             <LungIcon />
-            <span className="text-sm tracking-[0.2em] font-semibold">AIR QUALITY MORTALITY INDEX</span>
+            <span className="text-sm tracking-[0.2em] font-semibold">Air Quality Mortality Index</span>
           </div>
           
           {/* AQI Threat Spectrum */}
@@ -304,11 +304,11 @@ export default function AirQuality() {
                     
                     <div className="space-y-2 text-xs mb-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-muted-text">POPULATION</span>
+                        <span className="text-muted-text">Population</span>
                         <span className="text-white font-medium">{tier.population.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-muted-text">AVG. AQI</span>
+                        <span className="text-muted-text">Avg. AQI</span>
                         <span className="font-semibold" style={{ color: aqiColor }}>
                           {tier.avgAqi}
                         </span>
@@ -316,7 +316,7 @@ export default function AirQuality() {
                     </div>
                     
                     <div className="pt-4 border-t border-dark-border">
-                      <p className="text-[10px] tracking-wider text-muted-text mb-1">EST. ANNUAL DEATHS</p>
+                      <p className="text-[10px] tracking-wider text-muted-text mb-1">Est. Annual Deaths</p>
                       <p 
                         className="text-2xl font-bold" 
                         style={{ 
