@@ -46,7 +46,7 @@ export default function TermsOfService() {
 
         {/* Page header */}
         <div className="mb-10">
-          <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-3">
+          <p className="text-[10px] tracking-[0.3em] text-muted-text font-mono mb-3">
             Legal · Terms of Service
           </p>
           <h1 className="text-2xl md:text-3xl font-bold tracking-widest font-mono mb-2">
@@ -64,7 +64,7 @@ export default function TermsOfService() {
               key={i}
               className={`px-6 py-5 ${i < SECTIONS.length - 1 ? 'border-b border-dark-border/50' : ''}`}
             >
-              <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-slate-200 uppercase mb-2">
+              <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-slate-200 mb-2">
                 {String(i + 1).padStart(2, '0')}. {s.title}
               </h2>
               <p className="text-muted-text text-xs font-mono leading-relaxed">{s.body}</p>

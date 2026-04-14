@@ -30,9 +30,9 @@ const NavLink = ({ item, onClick }) => {
 
 const NAV_ITEMS = [
   { label: 'Live Dashboard', to: '/', live: true },
-  { label: 'System Diagnostics', to: '/diagnostics' },
-  { label: 'Projection Models', to: '/projections' },
-  { label: 'Data & Methodology', to: '/methodology' },
+  // { label: 'System Diagnostics', to: '/diagnostics' },
+  // { label: 'Projection Models', to: '/projections' },
+  { label: 'Sources', to: '/methodology' },
 ];
 
 export default function NavBar() {

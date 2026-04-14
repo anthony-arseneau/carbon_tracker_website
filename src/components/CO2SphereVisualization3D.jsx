@@ -329,10 +329,14 @@ function GridLines() {
   useEffect(() => {
     if (gridRef.current) {
       gridRef.current.material.transparent = true;
-      gridRef.current.material.opacity = 0.08;
+      gridRef.current.material.opacity = 0.5;
     }
   }, []);
-  return <gridHelper ref={gridRef} args={[80, 80, '#334155', '#334155']} />;
+  return (
+    <group>
+      <gridHelper ref={gridRef} args={[80, 80, '#334155', '#334155']} />
+    </group>
+  );
 }
 
 /* ─────────────────────────────────────────────
@@ -378,18 +382,22 @@ function Scene({ focusedIndex, onClickSphere }) {
       ))}
 
       {/* Measurement overlays — shown when a sphere is focused */}
-      {focusedIndex !== null && (
-        <MeasurementOverlay
-          position={[
-            SPHERE_POSITIONS[focusedIndex][0] + GASES[focusedIndex].radius + 0.4,
-            0,
-            0,
-          ]}
-          height={GASES[focusedIndex].radius * 2}
-          label={GASES[focusedIndex].diameter}
-          color={GASES[focusedIndex].highlight}
-        />
-      )}
+      {focusedIndex !== null && (() => {
+        const isSmall = focusedIndex >= 2; // N2O and SF6
+        const offset = GASES[focusedIndex].radius + 0.4;
+        return (
+          <MeasurementOverlay
+            position={[
+              SPHERE_POSITIONS[focusedIndex][0] + (isSmall ? offset : offset * Math.cos(Math.PI / 5)),
+              0,
+              isSmall ? 0 : offset * Math.sin(Math.PI / 4),
+            ]}
+            height={GASES[focusedIndex].radius * 2}
+            label={GASES[focusedIndex].diameter}
+            color={GASES[focusedIndex].highlight}
+          />
+        );
+      })()}
 
       {/* Human measurement overlay — shown when focused on any sphere */}
       {focusedIndex !== null && (
@@ -417,16 +425,15 @@ function Scene({ focusedIndex, onClickSphere }) {
 function InfoCard({ gas }) {
   if (!gas) return null;
   return (
-    <div className="absolute bottom-6 left-6 max-w-xs bg-dark-card/90 backdrop-blur-md border border-dark-border rounded-xl p-5 pointer-events-auto">
-      <p className="text-[10px] tracking-[0.3em] text-muted-text font-mono mb-1 uppercase">{gas.label}</p>
+    <div className="absolute bottom-3 left-3 sm:bottom-6 sm:left-6 max-w-[170px] sm:max-w-[220px] md:max-w-xs bg-dark-card/90 backdrop-blur-md border border-dark-border rounded-lg sm:rounded-xl p-2.5 sm:p-4 md:p-5 pointer-events-auto">
+      <p className="text-[8px] sm:text-[10px] tracking-[0.3em] text-muted-text font-mono mb-0.5 sm:mb-1 uppercase">{gas.label}</p>
       <h3
-        className="text-xl font-bold font-mono tracking-wide"
+        className="text-sm sm:text-lg md:text-xl font-bold font-mono tracking-wide"
         style={{ color: gas.highlight }}
       >
         {gas.mass} {gas.formula}
       </h3>
-      <p className="text-xs text-slate-400 font-mono mt-1">Equivalent to: 1 Tonne of Carbon Dioxide (1t CO₂e)</p>
-      
+      <p className="text-[9px] sm:text-[11px] md:text-xs text-slate-400 font-mono mt-0.5 sm:mt-1">Equivalent to: 1 Tonne of Carbon Dioxide (1t CO₂e)</p>
     </div>
   );
 }
@@ -569,7 +576,7 @@ function EmissionsSea() {
           {`${formatNumber(rates.perSecond, 2)} tonnes CO₂e every second`}
         </text>
         <text x={w / 2} y={h - 4} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="11" fontFamily="'JetBrains Mono', monospace" letterSpacing="0.15em">
-          Each Sphere = 1 tonne of warming impact
+          Each sphere = 1 tonne of CO₂e
         </text>
       </svg>
     </div>
@@ -580,7 +587,7 @@ function EmissionsSea() {
    Main Exported Component
    ───────────────────────────────────────────── */
 export default function CO2SphereVisualization3D() {
-  const [focusedIndex, setFocusedIndex] = useState(null);
+  const [focusedIndex, setFocusedIndex] = useState(0);
 
   const handleClickSphere = useCallback((index) => {
     setFocusedIndex(index);

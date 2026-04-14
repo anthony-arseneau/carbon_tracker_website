@@ -153,15 +153,8 @@ const TrajectorySection = () => {
       
       const currentMarker = svg.append('g').attr('transform', `translate(${x(currentYearX)},${y(currentYearY)})`);
       currentMarker.append('circle')
-        .attr('r', 5)
-        .attr('fill', '#f8fafc')
-        .attr('class', 'animate-pulse'); 
-      currentMarker.append('circle')
-        .attr('r', 8)
-        .attr('fill', 'none')
-        .attr('stroke', '#f8fafc')
-        .attr('stroke-width', 1)
-        .attr('class', 'animate-ping opacity-50'); 
+        .attr('r', 4)
+        .attr('fill', '#f8fafc'); 
       currentMarker.append('text')
         .attr('x', 0)
         .attr('y', -15)
@@ -208,10 +201,10 @@ const TrajectorySection = () => {
     <div className="border border-dark-border rounded-xl bg-dark-card overflow-hidden">
       {/* Section header */}
       <div className="px-8 pt-8 pb-4">
-        <p className="text-[10px] tracking-[0.3em] text-muted-text uppercase font-mono mb-1">
+        <p className="text-[10px] tracking-[0.3em] text-muted-text font-mono mb-1">
           Projection Models
         </p>
-        <h2 className="text-sm md:text-base font-bold tracking-widest font-mono text-slate-200 uppercase">
+        <h2 className="text-sm md:text-base font-bold tracking-widest font-mono text-slate-200">
           Future Emissions & Warming Trajectories
         </h2>
         <p className="text-[11px] text-muted-text font-mono tracking-wide mt-2 max-w-4xl leading-relaxed">
