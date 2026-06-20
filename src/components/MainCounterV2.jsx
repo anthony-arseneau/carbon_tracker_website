@@ -1,18 +1,18 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import {
-  AVG_CO2_PER_KM2,
-  CONFIG,
-  CRITICAL_BUDGET_THRESHOLD_15C,
-  CRITICAL_BUDGET_THRESHOLD_20C,
-  INITIAL_BUDGET_15C,
-  INITIAL_BUDGET_20C,
-  KM2_PER_SECOND,
-  SECONDS_PER_YEAR,
-  TONNES_PER_SECOND,
-  getAcceleratedTonnesPerSecond,
-  getAcceleratedTotalEmissions,
-  getSecondsUntilBudgetDepleted
+    AVG_CO2_PER_KM2,
+    CONFIG,
+    CRITICAL_BUDGET_THRESHOLD_15C,
+    CRITICAL_BUDGET_THRESHOLD_20C,
+    INITIAL_BUDGET_15C,
+    INITIAL_BUDGET_20C,
+    KM2_PER_SECOND,
+    SECONDS_PER_YEAR,
+    TONNES_PER_SECOND,
+    getAcceleratedTonnesPerSecond,
+    getAcceleratedTotalEmissions,
+    getSecondsUntilBudgetDepleted
 } from '../config.js';
 import { calculateTimeElapsed, formatNumber, padZero } from '../utils';
 
