@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
 import Sources from '../components/Sources.jsx';
 
@@ -28,7 +29,7 @@ const SOURCES = [
     abbr:   'GCP',
     color:  '#BB86FC',
     role:   'Annual Global Carbon Budget publication. Cross-reference for land-use, ocean sink, and fossil emission estimates.',
-    url:    'https://globalcarbonproject.org',
+    url:    'https://www.globalcarbonproject.org/',
   },
 ];
 
@@ -66,7 +67,7 @@ export default function DataMethodology() {
             Module · Data &amp; Methodology
           </p>
           <h1 className="text-2xl md:text-3xl font-bold tracking-widest font-mono mb-2">
-            Data Calibration &amp; Sources
+            Sources
           </h1>
           <p className="text-sm text-muted-text font-mono tracking-wide">
             Transparency record for all data pipelines, assumptions, and scientific references used by this dashboard.
@@ -136,6 +137,8 @@ export default function DataMethodology() {
         </div>
 
       </main>
+
+      <Footer />
     </div>
   );
 }

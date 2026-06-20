@@ -68,7 +68,7 @@ export default function Footer() {
           {/* Column 3: Data Partners */}
           <div>
             <h3 className="text-[10px] tracking-[0.28em] text-muted-text uppercase font-mono mb-5">
-              Data Calibration &amp; Sources
+              Sources
             </h3>
             <div className="flex flex-row flex-wrap justify-center md:justify-start gap-3">
               {DATA_PARTNERS.map((p) => (
@@ -76,7 +76,7 @@ export default function Footer() {
                   to="/methodology"
                   key={p.abbr}
                   title={p.name}
-                  className="grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default border rounded px-2.5 py-1.5 text-[10px] font-mono font-bold tracking-[0.2em]"
+                  className="grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer border rounded px-2.5 py-1.5 text-[10px] font-mono font-bold tracking-[0.2em]"
                   style={{ color: p.color, borderColor: p.color }}
                 >
                   {p.abbr}

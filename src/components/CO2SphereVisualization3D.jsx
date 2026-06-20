@@ -103,7 +103,7 @@ function getFocusCamera(index) {
   const [sx, sy] = SPHERE_POSITIONS[index];
   const r = GASES[index].radius;
   // Position camera diagonally down the line so spheres behind are visible
-  const dist = Math.max(r * 3.5, 3.5);
+  const dist = Math.max(r * 3.5, 5);
   return {
     position: new THREE.Vector3(sx - dist * 0.35, sy + dist * 0.45, dist),
     target: new THREE.Vector3(sx, sy * 0.5, 0),
@@ -145,26 +145,15 @@ function CameraController({ cameraState }) {
    ───────────────────────────────────────────── */
 function GasSphere({ gas, position, onClick, focused }) {
   const meshRef = useRef();
-  const wireRef = useRef();
   const groupRef = useRef();
 
   const threeColor = useMemo(() => new THREE.Color(gas.color), [gas.color]);
-  const highlightColor = useMemo(() => new THREE.Color(gas.highlight), [gas.highlight]);
 
   // Hover glow state
   const [hovered, setHovered] = useState(false);
 
-  // Wireframe rotation
-  useFrame((_, delta) => {
-    if (wireRef.current) {
-      wireRef.current.rotation.y += delta * 0.04;
-      wireRef.current.rotation.x += delta * 0.015;
-    }
-  });
-
   // Choose segment detail based on sphere size (small spheres don't need 64 segments)
   const segments = gas.radius > 2 ? 64 : gas.radius > 0.5 ? 32 : 16;
-  const wireSegments = gas.radius > 2 ? 24 : gas.radius > 0.5 ? 16 : 10;
 
   return (
     <group
@@ -192,17 +181,6 @@ function GasSphere({ gas, position, onClick, focused }) {
           metalness={0.15}
           emissive={threeColor}
           emissiveIntensity={hovered || focused ? 0.35 : 0.08}
-        />
-      </mesh>
-
-      {/* Wireframe overlay — slightly larger */}
-      <mesh ref={wireRef}>
-        <icosahedronGeometry args={[gas.radius * 1.08, wireSegments > 16 ? 3 : 2]} />
-        <meshBasicMaterial
-          color={highlightColor}
-          wireframe
-          transparent
-          opacity={hovered || focused ? 0.3 : 0.12}
         />
       </mesh>
 

@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
 
 const SECTIONS = [
@@ -90,6 +91,8 @@ export default function TermsOfService() {
         </div> */}
 
       </main>
+
+      <Footer />
     </div>
   );
 }

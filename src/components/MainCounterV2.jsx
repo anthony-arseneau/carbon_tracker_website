@@ -204,7 +204,7 @@ export default function MainCounter({ onViewChange }) {
   return (
     <section>
       <div
-        className={`relative border ${isFireView ? '' : 'border-dark-border'} rounded-lg bg-dark-slate p-8 md:p-12 ${showBar ? 'pb-10 md:pb-14' : 'pb-8 md:pb-12'} overflow-hidden`}
+        className={`relative border ${isFireView ? '' : 'border-dark-border'} rounded-lg bg-dark-slate p-5 sm:p-8 md:p-12 ${showBar ? 'pb-10 md:pb-14' : 'pb-8 md:pb-12'} overflow-hidden`}
         style={isFireView ? { borderColor: '#FF4D00', boxShadow: '0 0 30px rgba(255, 77, 0, 0.15)' } : undefined}
       >
         {/* Background Video 1 */}
@@ -309,7 +309,7 @@ export default function MainCounter({ onViewChange }) {
               {is20C ? (
                 <div>
                   <p className="text-xs tracking-[0.2em] text-muted-text mb-2">Time Remaining Until Budget Depletion</p>
-                  <div className="flex justify-center items-center gap-1 md:gap-2 text-xl md:text-3xl font-semibold">
+                  <div className="flex justify-center items-center gap-1 md:gap-2 text-lg sm:text-xl md:text-3xl font-semibold">
                     <TimeUnit value={budgetCountdown.years} label="YRS" />
                     <span className="text-muted-text">:</span>
                     <TimeUnit value={budgetCountdown.days} label="DAYS" />
@@ -324,7 +324,7 @@ export default function MainCounter({ onViewChange }) {
               ) : is15Overshoot ? (
                 <div>
                   <p className="text-xs tracking-[0.2em] text-muted-text mb-2">Time Elapsed Since 1.5°C Threshold Breach</p>
-                  <div className="flex justify-center items-center gap-1 md:gap-2 text-xl md:text-3xl font-semibold">
+                  <div className="flex justify-center items-center gap-1 md:gap-2 text-lg sm:text-xl md:text-3xl font-semibold">
                     <TimeUnit value={breachElapsed.years} label="YRS" />
                     <span className="text-muted-text">:</span>
                     <TimeUnit value={breachElapsed.days} label="DAYS" />
@@ -521,9 +521,9 @@ function getTickerTheme(activeView, budgetRemaining, criticalThreshold) {
 
 function TimeUnit({ value, label }) {
   return (
-    <div className="bg-dark-slate border border-dark-border rounded px-3 py-2">
+    <div className="bg-dark-slate border border-dark-border rounded px-2 sm:px-3 py-2">
       <span className="text-white tabular-nums">{padZero(value)}</span>
-      <span className="text-xs text-muted-text block">{label}</span>
+      <span className="text-[10px] sm:text-xs text-muted-text block">{label}</span>
     </div>
   );
 }
